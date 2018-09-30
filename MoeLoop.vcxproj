@@ -64,11 +64,11 @@
   </ImportGroup>
   <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
-    <Import Project="..\UsagiProjects.props" />
+    <Import Project="$(SolutionDir)Common.props" />
   </ImportGroup>
   <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
-    <Import Project="..\UsagiProjects.props" />
+    <Import Project="$(SolutionDir)Common.props" />
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup />
@@ -156,10 +156,10 @@
     <ClInclude Include="Script\LuaForwardDecl.hpp" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Thirdparty\Submodules\lua\lua.vcxproj">
-      <Project>{d6fe911a-ac17-4db9-895e-f574011173fc}</Project>
+    <ProjectReference Include="..\..\..\Thirdparties\Submodules\lua\build\lua.vcxproj">
+      <Project>{d800dc6b-c67f-4793-ba7c-c59d633846b6}</Project>
     </ProjectReference>
-    <ProjectReference Include="..\Usagi\Usagi.vcxproj">
+    <ProjectReference Include="..\..\Usagi\Usagi\Usagi.vcxproj">
       <Project>{4250e1c0-ea0b-4575-bc04-11e7f83c2ed4}</Project>
     </ProjectReference>
   </ItemGroup>
