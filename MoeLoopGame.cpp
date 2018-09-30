@@ -1,7 +1,10 @@
 ﻿#include "MoeLoopGame.hpp"
 
+#include <fstream>
+
 #include <Usagi/Asset/AssetRoot.hpp>
 #include <Usagi/Asset/Package/Filesystem/FilesystemAssetPackage.hpp>
+#include <Usagi/Asset/Converter/Uncached/StringAssetConverter.hpp>
 #include <Usagi/Core/Logging.hpp>
 #include <Usagi/Runtime/Input/InputManager.hpp>
 #include <Usagi/Runtime/Input/Mouse/Mouse.hpp>
@@ -12,7 +15,6 @@
 #include "Scene/Scene.hpp"
 #include "Scene/Character.hpp"
 #include "Scene/ImageLayer.hpp"
-#include "Game/GameInitState.hpp"
 #include "Game/SceneState.hpp"
 
 namespace usagi::moeloop
@@ -35,6 +37,29 @@ MoeLoopGame::~MoeLoopGame()
 
     // remove all states that may reference this game instance.
     mRootElement.removeChild(mStateManager);
+}
+
+kaguya::LuaFunction MoeLoopGame::loadScript(const std::string &locator)
+{
+    LOG(info, "Loading script from asset manager: {}", locator);
+    return mLuaContext.loadstring(
+        assets()->uncachedRes<StringAssetConverter>(locator)
+    );
+}
+
+void MoeLoopGame::executeFileScript(const std::string &path)
+{
+    LOG(info, "Executing script from file: {}", path);
+    std::ifstream in(std::filesystem::u8path(path));
+    mLuaContext.dostream(in);
+}
+
+void MoeLoopGame::executeScript(const std::string &locator)
+{
+    LOG(info, "Executing script from asset manager: {}", locator);
+    mLuaContext.dostring(
+        assets()->uncachedRes<StringAssetConverter>(locator)
+    );
 }
 
 void MoeLoopGame::unimplemented(const std::string &msg)
@@ -72,8 +97,9 @@ void MoeLoopGame::setupInput()
 
 void MoeLoopGame::init()
 {
-    mStateManager->pushState(mStateManager->addChild<GameInitState>(
-        "Init", this));
+    // the init script should bootstrap the engine, load the assets, then
+    // switch to other states that is supposed to interact with the player.
+    executeFileScript("init.lua");
 }
 
 void MoeLoopGame::addFilesystemPackage(

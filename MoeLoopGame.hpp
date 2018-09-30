@@ -37,8 +37,9 @@ public:
     InputMapping * inputMapping() { return &mInputMapping; }
     kaguya::State * luaContext() { return &mLuaContext; }
 
-    void executeScript(const std::string &path);
-    void executeAssetScript(const std::string &locator);
+    kaguya::LuaFunction loadScript(const std::string &locator);
+    void executeFileScript(const std::string &path);
+    void executeScript(const std::string &locator);
 
     // Functions accessible from Lua
 

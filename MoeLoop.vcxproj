@@ -71,10 +71,8 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="Game\GameInitState.cpp" />
     <ClCompile Include="Game\MoeLoopGameState.cpp" />
     <ClCompile Include="Game\SceneState.cpp" />
-    <ClCompile Include="Game\ScriptState.cpp" />
     <ClCompile Include="JSON\JsonAssetDecoder.cpp" />
     <ClCompile Include="JSON\JsonPropertySheetAssetConverter.cpp" />
     <ClCompile Include="MoeLoopGame.cpp" />
@@ -87,10 +85,8 @@
     <ClCompile Include="Scene\TransitionableImage.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Game\GameInitState.hpp" />
     <ClInclude Include="Game\MoeLoopGameState.hpp" />
     <ClInclude Include="Game\SceneState.hpp" />
-    <ClInclude Include="Game\ScriptState.hpp" />
     <ClInclude Include="JSON\JSON.hpp" />
     <ClInclude Include="JSON\JsonAssetConverter.hpp" />
     <ClInclude Include="JSON\JsonAssetDecoder.hpp" />

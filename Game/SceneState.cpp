@@ -2,7 +2,6 @@
 
 #include <Usagi/Animation/AnimationSubsystem.hpp>
 #include <Usagi/Asset/AssetRoot.hpp>
-#include <Usagi/Asset/Converter/Uncached/StringAssetConverter.hpp>
 #include <Usagi/Camera/Controller/StaticCameraController.hpp>
 #include <Usagi/Camera/OrthogonalCamera.hpp>
 #include <Usagi/Core/Logging.hpp>
@@ -28,10 +27,7 @@ void SceneState::loadScene()
         fmt::format("scenes/{}.json", name())
     ));
     mSceneThread = game()->luaContext()->newThread();
-    mSceneScript = game()->luaContext()->loadstring(
-        game()->assets()->uncachedRes<StringAssetConverter>(
-            fmt::format("scripts/{}.lua", name())
-        ));
+    mSceneScript = game()->loadScript(fmt::format("scripts/{}.lua", name()));
     mSceneThread.setFunction(mSceneScript);
 }
 
