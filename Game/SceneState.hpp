@@ -19,6 +19,7 @@ class Scene;
 
 class SceneState : public MoeLoopGameState
 {
+protected:
     Scene *mScene = nullptr;
     kaguya::LuaThread mSceneThread;
     kaguya::LuaFunction mSceneScript;

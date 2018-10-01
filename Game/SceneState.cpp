@@ -22,7 +22,7 @@ void SceneState::loadScene()
 {
     LOG(info, "Loading scene: {}", name());
 
-    mScene = addChild<Scene>(name(), game()->runtime(), game()->assets());
+    mScene = addChild<Scene>(name(), game());
     mScene->load(game()->assets()->uncachedRes<JsonPropertySheetAssetConverter>(
         fmt::format("scenes/{}.json", name())
     ));

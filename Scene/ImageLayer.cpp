@@ -1,11 +1,11 @@
 ﻿#include "ImageLayer.hpp"
 
 #include <Usagi/Core/Logging.hpp>
-#include <Usagi/Asset/AssetRoot.hpp>
-#include <Usagi/Asset/Converter/GpuImageAssetConverter.hpp>
+#include <Usagi/Asset/Helper/Load.hpp>
 #include <Usagi/Transform/TransformComponent.hpp>
-#include <Usagi/Runtime/Runtime.hpp>
+#include <Usagi/Runtime/Graphics/GpuImage.hpp>
 
+#include <MoeLoop/MoeLoopGame.hpp>
 #include <MoeLoop/Script/Lua.hpp>
 
 #include "Scene.hpp"
@@ -23,11 +23,10 @@ ImageLayer::ImageLayer(
     comp<TransformComponent>()->setPosition({ 0, y_pos, 0 });
 }
 
-void ImageLayer::changeImage(const std::string &name)
+void ImageLayer::changeImage(const std::string &locator)
 {
-    LOG(info, "ImageLayer::changeImage {}", name);
-    const auto texture = mScene->asset()->res<GpuImageAssetConverter>(
-        "images/" + name, mScene->runtime()->gpu());
+    LOG(info, "ImageLayer::changeImage {}", locator);
+    const auto texture = loadTexture(mScene->game(), locator);
     switchImage(1.0, "linear", texture);
     comp<TransformComponent>()->setOffset({
         0, 0, static_cast<float>(texture->size().y())

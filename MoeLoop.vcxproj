@@ -75,6 +75,7 @@
     <ClCompile Include="Game\SceneState.cpp" />
     <ClCompile Include="JSON\JsonAssetDecoder.cpp" />
     <ClCompile Include="JSON\JsonPropertySheetAssetConverter.cpp" />
+    <ClCompile Include="JSON\Load.cpp" />
     <ClCompile Include="MoeLoopGame.cpp" />
     <ClCompile Include="Render\SortedSpriteRenderingSubsystem.cpp" />
     <ClCompile Include="Render\SpriteComponent.cpp" />
@@ -92,6 +93,7 @@
     <ClInclude Include="JSON\JsonAssetDecoder.hpp" />
     <ClInclude Include="JSON\JsonPropertySheetAssetConverter.hpp" />
     <ClInclude Include="JSON\JSONForwardDecl.hpp" />
+    <ClInclude Include="JSON\Load.hpp" />
     <ClInclude Include="JSON\Math.hpp" />
     <ClInclude Include="MoeLoopGame.hpp" />
     <ClInclude Include="Render\SortedSpriteRenderingSubsystem.hpp" />

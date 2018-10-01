@@ -1,13 +1,13 @@
 ﻿#include "Scene.hpp"
 
 #include <Usagi/Asset/AssetRoot.hpp>
-#include <Usagi/Asset/Converter/GpuImageAssetConverter.hpp>
+#include <Usagi/Asset/Helper/Load.hpp>
 #include <Usagi/Core/Logging.hpp>
-#include <Usagi/Runtime/Runtime.hpp>
 
 #include <MoeLoop/Script/Lua.hpp>
-#include <MoeLoop/JSON/JsonPropertySheetAssetConverter.hpp>
+#include <MoeLoop/JSON/Load.hpp>
 #include <MoeLoop/JSON/Math.hpp>
+#include <MoeLoop/MoeLoopGame.hpp>
 
 #include "Expression.hpp"
 #include "ImageLayer.hpp"
@@ -15,14 +15,9 @@
 
 namespace usagi::moeloop
 {
-Scene::Scene(
-    Element *parent,
-    std::string name,
-    Runtime *runtime,
-    AssetRoot *asset)
+Scene::Scene(Element *parent, std::string name, MoeLoopGame *game)
     : Element(parent, std::move(name))
-    , mRuntime(runtime)
-    , mAssets(asset)
+    , mGame(game)
 {
     mCharacters = addChild("Characters");
     mExpressions = addChild("Expressions");
@@ -51,16 +46,12 @@ Character * Scene::loadCharacter(const std::string &asset_locator)
 Expression * Scene::loadExpression(const std::string &name)
 {
     LOG(info, "Loading expression: {}", name);
-    const auto data = mAssets->uncachedRes<JsonPropertySheetAssetConverter>(
-        fmt::format("expressions/{}.json", name)
-    );
+    const auto data = loadJson(mGame, fmt::format("expressions/{}.json", name));
     return mExpressions->addChild<Expression>(
         name,
         data["origin"].get<Vector2f>(),
         data["face_center"].get<Vector2f>(),
-        mAssets->res<GpuImageAssetConverter>(
-            "expressions/" + data["image"].get<std::string>(),
-            mRuntime->gpu())
+        loadTexture(mGame, "expressions/" + data["image"].get<std::string>())
     );
 }
 

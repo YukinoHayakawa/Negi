@@ -6,22 +6,16 @@
 #include <MoeLoop/Script/LuaForwardDecl.hpp>
 #include <MoeLoop/JSON/JSONForwardDecl.hpp>
 
-namespace usagi
-{
-class Runtime;
-class AssetRoot;
-}
-
 namespace usagi::moeloop
 {
+class MoeLoopGame;
 class Expression;
 class Character;
 class ImageLayer;
 
 class Scene : public Element
 {
-    Runtime *mRuntime = nullptr;
-    AssetRoot *mAssets = nullptr;
+    MoeLoopGame *mGame = nullptr;
     Element *mCharacters = nullptr;
     Element *mExpressions = nullptr;
     Element *mImageLayers = nullptr;
@@ -30,11 +24,7 @@ class Scene : public Element
     std::map<std::string, Vector3f> mPositions;
 
 public:
-    Scene(
-        Element *parent,
-        std::string name,
-        Runtime *runtime,
-        AssetRoot *asset);
+    Scene(Element *parent, std::string name, MoeLoopGame *game);
 
     void load(const json &j);
 
@@ -43,8 +33,7 @@ public:
     Expression * loadExpression(const std::string &name);
     Vector3f getPosition(const std::string &name) const;
 
-    Runtime * runtime() const { return mRuntime; }
-    AssetRoot * asset() const { return mAssets; }
+    MoeLoopGame * game() const { return mGame; }
 
     static void exportScript(kaguya::State &vm);
 };
