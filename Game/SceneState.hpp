@@ -23,6 +23,7 @@ protected:
     Scene *mScene = nullptr;
     kaguya::LuaThread mSceneThread;
     kaguya::LuaFunction mSceneScript;
+    bool mContinueScript = true;
 
     using ModelCameraMan =
         CameraMan<OrthogonalCamera, StaticCameraController>;

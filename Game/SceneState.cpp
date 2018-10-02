@@ -89,6 +89,7 @@ void SceneState::continueScript()
 {
     if(!mSceneThread.isThreadDead())
         mSceneThread.resume<std::string>();
+    mContinueScript = false;
 }
 
 void SceneState::update(const Clock &clock)
@@ -96,6 +97,10 @@ void SceneState::update(const Clock &clock)
     const Vector2f size = mGame->mainWindow()->swapchain->size().cast<float>();
     mCameraElement->camera()->setOrthogonal(
         0, size.x(), 0, size.y(), -100, 100);
+
+    // todo preload resources
+    if(mContinueScript)
+        continueScript();
 
     MoeLoopGameState::update(clock);
 }
@@ -110,7 +115,7 @@ void SceneState::playerContinueScript(const bool yes)
         }
         else
         {
-            continueScript();
+            mContinueScript = true;
         }
     }
 }
