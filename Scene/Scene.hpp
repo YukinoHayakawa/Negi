@@ -23,6 +23,8 @@ class Scene : public Element
     AlignedBox3f mBound;
     std::map<std::string, Vector3f> mPositions;
 
+    Character *mLastSpeakCharacter = nullptr;
+
 public:
     Scene(Element *parent, std::string name, MoeLoopGame *game);
 
@@ -32,6 +34,8 @@ public:
     Character * loadCharacter(const std::string &asset_locator);
     Expression * loadExpression(const std::string &name);
     Vector3f getPosition(const std::string &name) const;
+
+    Character * lastSpeakCharacter() const { return mLastSpeakCharacter; }
 
     MoeLoopGame * game() const { return mGame; }
 

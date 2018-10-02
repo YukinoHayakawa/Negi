@@ -8,6 +8,7 @@
 #include <MoeLoop/Script/Lua.hpp>
 
 #include "Expression.hpp"
+#include "CharacterMessageEvent.hpp"
 
 namespace usagi::moeloop
 {
@@ -24,17 +25,18 @@ void Character::setPosition(const Vector3f &position)
 void Character::changeExpression(Expression *expr)
 {
     // todo use scene default
+
     switchImage(0.5, "linear", expr->texture());
     const auto o = expr->origin();
     comp<SpriteComponent>()->layers[1].offset = -o;
 }
 
-void Character::showName(bool show)
+void Character::showName(const bool show)
 {
     mShowName = show;
 }
 
-void Character::showAvatar(bool show)
+void Character::showAvatar(const bool show)
 {
     mShowAvatar = show;
 }
@@ -56,6 +58,9 @@ void Character::move(const Vector3f &position)
 void Character::say(const std::string &text)
 {
     LOG(info, "{}: {}", name(), text);
+    mLastName = name();
+    mLastMessage = text;
+    sendEvent<CharacterMessageEvent>(this);
 }
 
 void Character::enterScene(
@@ -77,6 +82,9 @@ void Character::pretendSay(
     const std::string &text)
 {
     LOG(info, "{}({}): {}", fake_name, name(), text);
+    mLastName = fake_name;
+    mLastMessage = text;
+    sendEvent<CharacterMessageEvent>(this);
 }
 
 void Character::exportScript(kaguya::State &vm)

@@ -99,6 +99,7 @@
     <ClInclude Include="Render\SortedSpriteRenderingSubsystem.hpp" />
     <ClInclude Include="Render\SpriteComponent.hpp" />
     <ClInclude Include="Scene\Character.hpp" />
+    <ClInclude Include="Scene\CharacterMessageEvent.hpp" />
     <ClInclude Include="Scene\Expression.hpp" />
     <ClInclude Include="Scene\ImageLayer.hpp" />
     <ClInclude Include="Scene\Scene.hpp" />

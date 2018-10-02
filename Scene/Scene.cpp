@@ -12,6 +12,7 @@
 #include "Expression.hpp"
 #include "ImageLayer.hpp"
 #include "Character.hpp"
+#include "CharacterMessageEvent.hpp"
 
 namespace usagi::moeloop
 {
@@ -22,6 +23,10 @@ Scene::Scene(Element *parent, std::string name, MoeLoopGame *game)
     mCharacters = addChild("Characters");
     mExpressions = addChild("Expressions");
     mImageLayers = addChild("ImageLayers");
+
+    addEventListener<CharacterMessageEvent>([&](CharacterMessageEvent &e) {
+        mLastSpeakCharacter = e.character;
+    });
 }
 
 void Scene::load(const json &j)
