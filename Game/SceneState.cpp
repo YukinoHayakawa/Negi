@@ -15,6 +15,7 @@
 #include <MoeLoop/Render/SortedSpriteRenderingSubsystem.hpp>
 #include <MoeLoop/Render/SpriteComponent.hpp>
 #include <MoeLoop/Scene/Scene.hpp>
+#include <Usagi/Interactive/InputMapping.hpp>
 
 namespace usagi::moeloop
 {
@@ -67,10 +68,12 @@ void SceneState::setupAnimation()
 void SceneState::setupInput()
 {
     const auto im = game()->inputMapping();
-    im->addBinaryAction("NextMessage", partial_apply(
-        &SceneState::playerContinueScript, this));
-    im->bindKey("NextMessage", KeyCode::ENTER);
-    // todo should not be here
+    {
+        auto msg = im->actionGroup("Message");
+        msg->activate();
+        msg->setBinaryActionHandler("NextMessage", partial_apply(
+            &SceneState::playerContinueScript, this));
+    }
 }
 
 SceneState::SceneState(Element *parent, std::string name, MoeLoopGame *game)
@@ -78,17 +81,17 @@ SceneState::SceneState(Element *parent, std::string name, MoeLoopGame *game)
 {
     loadScene();
     createCamera();
-    // animation system must be inserted before rendering to create correct
-    // result.
+    // animation system must be inserted before rendering, otherwise outdated
+    // content from last frame will be rendered
     setupAnimation();
     setupRenderer();
-    setupInput();
 }
 
 void SceneState::continueScript()
 {
     if(!mSceneThread.isThreadDead())
-        mSceneThread.resume<std::string>();
+        // the returned string is ignored
+        mSceneThread.resume<void>();
     mContinueScript = false;
 }
 
@@ -103,6 +106,15 @@ void SceneState::update(const Clock &clock)
         continueScript();
 
     MoeLoopGameState::update(clock);
+}
+
+void SceneState::pause()
+{
+}
+
+void SceneState::resume()
+{
+    setupInput();
 }
 
 void SceneState::playerContinueScript(const bool yes)

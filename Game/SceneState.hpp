@@ -45,6 +45,8 @@ public:
     Scene * scene() const { return mScene; }
 
     void update(const Clock &clock) override;
+    void pause() override;
+    void resume() override;
 
     void playerContinueScript(bool yes);
 };

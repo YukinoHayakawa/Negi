@@ -1,12 +1,12 @@
 ﻿#pragma once
 
 #include <Usagi/Graphics/Game/GraphicalGame.hpp>
-#include <Usagi/Interactive/InputMapping.hpp>
 
 #include "Script/Lua.hpp"
 
 namespace usagi
 {
+class InputMapping;
 class GameState;
 }
 
@@ -20,7 +20,7 @@ class MoeLoopGame : public GraphicalGame
 protected:
     kaguya::State mLuaContext;
 
-    InputMapping mInputMapping;
+    InputMapping *mInputMapping = nullptr;
 
     void bindScript();
     void setupInput();
@@ -34,7 +34,7 @@ public:
      */
     virtual void init();
 
-    InputMapping * inputMapping() { return &mInputMapping; }
+    InputMapping * inputMapping() { return mInputMapping; }
     kaguya::State * luaContext() { return &mLuaContext; }
 
     kaguya::LuaFunction loadScript(const std::string &locator);

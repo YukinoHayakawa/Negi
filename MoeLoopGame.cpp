@@ -11,6 +11,7 @@
 #include <Usagi/Runtime/Input/Keyboard/Keyboard.hpp>
 #include <Usagi/Runtime/Runtime.hpp>
 #include <Usagi/Game/GameStateManager.hpp>
+#include <Usagi/Interactive/InputMapping.hpp>
 
 #include "Scene/Scene.hpp"
 #include "Scene/Character.hpp"
@@ -22,18 +23,25 @@ namespace usagi::moeloop
 MoeLoopGame::MoeLoopGame(std::shared_ptr<Runtime> runtime)
     : GraphicalGame(std::move(runtime))
 {
+    mInputMapping = mRootElement.addChild<InputMapping>("InputMapping");
     auto mouse = mRuntime->inputManager()->virtualMouse();
     auto kb = mRuntime->inputManager()->virtualKeyboard();
-    mouse->addEventListener(&mInputMapping);
-    kb->addEventListener(&mInputMapping);
+    mouse->addEventListener(mInputMapping);
+    kb->addEventListener(mInputMapping);
+
+    {
+        auto msg = mInputMapping->addActionGroup("Message");
+        // todo allow user configuration
+        msg->bindKey("NextMessage", KeyCode::ENTER);
+    }
 }
 
 MoeLoopGame::~MoeLoopGame()
 {
     auto mouse = mRuntime->inputManager()->virtualMouse();
     auto kb = mRuntime->inputManager()->virtualKeyboard();
-    mouse->removeEventListener(&mInputMapping);
-    kb->removeEventListener(&mInputMapping);
+    mouse->removeEventListener(mInputMapping);
+    kb->removeEventListener(mInputMapping);
 
     // remove all states that may reference this game instance.
     mRootElement.removeChild(mStateManager);
@@ -112,11 +120,13 @@ void MoeLoopGame::addFilesystemPackage(
 
 void MoeLoopGame::changeState(GameState *state)
 {
+    mInputMapping->disableAllActionGroups();
     mStateManager->changeState(state);
 }
 
 void MoeLoopGame::pushState(GameState *state)
 {
+    mInputMapping->disableAllActionGroups();
     mStateManager->pushState(state);
 }
 
