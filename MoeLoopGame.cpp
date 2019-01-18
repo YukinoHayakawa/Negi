@@ -33,6 +33,8 @@ MoeLoopGame::MoeLoopGame(std::shared_ptr<Runtime> runtime)
         auto msg = mInputMapping->addActionGroup("Message");
         // todo allow user configuration
         msg->bindKey("NextMessage", KeyCode::ENTER);
+        msg->bindMouseButton("NextMessage", MouseButtonCode::LEFT);
+        msg->bindMouseButton("NextMessage", MouseButtonCode::WHEEL_DOWN);
     }
 }
 
