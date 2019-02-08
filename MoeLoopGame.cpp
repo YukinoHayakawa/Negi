@@ -40,11 +40,6 @@ MoeLoopGame::MoeLoopGame(std::shared_ptr<Runtime> runtime)
 
 MoeLoopGame::~MoeLoopGame()
 {
-    auto mouse = mRuntime->inputManager()->virtualMouse();
-    auto kb = mRuntime->inputManager()->virtualKeyboard();
-    mouse->removeEventListener(mInputMapping);
-    kb->removeEventListener(mInputMapping);
-
     // remove all states that may reference this game instance.
     mRootElement.removeChild(mStateManager);
 }
