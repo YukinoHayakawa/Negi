@@ -10,14 +10,14 @@
 #include <Usagi/Transform/TransformComponent.hpp>
 #include <Usagi/Utility/Functional.hpp>
 
-#include <MoeLoop/JSON/JsonPropertySheetAssetConverter.hpp>
-#include <MoeLoop/MoeLoopGame.hpp>
-#include <MoeLoop/Render/SortedSpriteRenderingSubsystem.hpp>
-#include <MoeLoop/Render/SpriteComponent.hpp>
-#include <MoeLoop/Scene/Scene.hpp>
+#include <Negi/JSON/JsonPropertySheetAssetConverter.hpp>
+#include <Negi/NegiGame.hpp>
+#include <Negi/Render/SortedSpriteRenderingSubsystem.hpp>
+#include <Negi/Render/SpriteComponent.hpp>
+#include <Negi/Scene/Scene.hpp>
 #include <Usagi/Interactive/InputMapping.hpp>
 
-namespace usagi::moeloop
+namespace usagi::negi
 {
 void SceneState::loadScene()
 {
@@ -76,8 +76,8 @@ void SceneState::setupInput()
     }
 }
 
-SceneState::SceneState(Element *parent, std::string name, MoeLoopGame *game)
-    : MoeLoopGameState(parent, name, game)
+SceneState::SceneState(Element *parent, std::string name, NegiGame *game)
+    : NegiGameState(parent, name, game)
 {
     loadScene();
     createCamera();
@@ -105,7 +105,7 @@ void SceneState::update(const Clock &clock)
     if(mContinueScript)
         continueScript();
 
-    MoeLoopGameState::update(clock);
+    NegiGameState::update(clock);
 }
 
 void SceneState::pause()

@@ -10,7 +10,7 @@ namespace usagi
 struct AssetLoadingContext;
 }
 
-namespace usagi::moeloop
+namespace usagi::negi
 {
 template <typename T>
 struct JsonAssetConverter

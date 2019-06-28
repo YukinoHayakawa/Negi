@@ -1,4 +1,4 @@
-﻿#include "MoeLoopGame.hpp"
+﻿#include "NegiGame.hpp"
 
 #include <fstream>
 
@@ -18,9 +18,9 @@
 #include "Scene/ImageLayer.hpp"
 #include "Game/SceneState.hpp"
 
-namespace usagi::moeloop
+namespace usagi::negi
 {
-MoeLoopGame::MoeLoopGame(std::shared_ptr<Runtime> runtime)
+NegiGame::NegiGame(std::shared_ptr<Runtime> runtime)
     : GraphicalGame(std::move(runtime))
 {
     mInputMapping = mRootElement.addChild<InputMapping>("InputMapping");
@@ -38,13 +38,13 @@ MoeLoopGame::MoeLoopGame(std::shared_ptr<Runtime> runtime)
     }
 }
 
-MoeLoopGame::~MoeLoopGame()
+NegiGame::~NegiGame()
 {
     // remove all states that may reference this game instance.
     mRootElement.removeChild(mStateManager);
 }
 
-kaguya::LuaFunction MoeLoopGame::loadScript(const std::string &locator)
+kaguya::LuaFunction NegiGame::loadScript(const std::string &locator)
 {
     LOG(info, "Loading script from asset manager: {}", locator);
     return mLuaContext.loadstring(
@@ -52,14 +52,14 @@ kaguya::LuaFunction MoeLoopGame::loadScript(const std::string &locator)
     );
 }
 
-void MoeLoopGame::executeFileScript(const std::string &path)
+void NegiGame::executeFileScript(const std::string &path)
 {
     LOG(info, "Executing script from file: {}", path);
     std::ifstream in(std::filesystem::u8path(path));
     mLuaContext.dostream(in);
 }
 
-void MoeLoopGame::executeScript(const std::string &locator)
+void NegiGame::executeScript(const std::string &locator)
 {
     LOG(info, "Executing script from asset manager: {}", locator);
     mLuaContext.dostring(
@@ -67,12 +67,12 @@ void MoeLoopGame::executeScript(const std::string &locator)
     );
 }
 
-void MoeLoopGame::unimplemented(const std::string &msg)
+void NegiGame::unimplemented(const std::string &msg)
 {
     LOG(warn, "Script: unimplemented code: {}", msg);
 }
 
-void MoeLoopGame::bindScript()
+void NegiGame::bindScript()
 {
     using namespace std::placeholders;
 
@@ -81,14 +81,14 @@ void MoeLoopGame::bindScript()
         throw std::runtime_error("Error occurred in script.");
     });
 
-    mLuaContext["unimplemented"].setFunction(&MoeLoopGame::unimplemented);
-    mLuaContext["MoeLoop"].setClass(kaguya::UserdataMetatable<MoeLoopGame>()
-        .addFunction("addFilesystemPackage", &MoeLoopGame::addFilesystemPackage)
-        .addFunction("changeState", &MoeLoopGame::changeState)
-        .addFunction("pushState", &MoeLoopGame::pushState)
-        .addFunction("popState", &MoeLoopGame::popState)
-        .addFunction("createSceneState", &MoeLoopGame::createSceneState)
-        .addFunction("currentScene", &MoeLoopGame::currentScene)
+    mLuaContext["unimplemented"].setFunction(&NegiGame::unimplemented);
+    mLuaContext["MoeLoop"].setClass(kaguya::UserdataMetatable<NegiGame>()
+        .addFunction("addFilesystemPackage", &NegiGame::addFilesystemPackage)
+        .addFunction("changeState", &NegiGame::changeState)
+        .addFunction("pushState", &NegiGame::pushState)
+        .addFunction("popState", &NegiGame::popState)
+        .addFunction("createSceneState", &NegiGame::createSceneState)
+        .addFunction("currentScene", &NegiGame::currentScene)
     );
 
     Scene::exportScript(mLuaContext);
@@ -96,18 +96,18 @@ void MoeLoopGame::bindScript()
     ImageLayer::exportScript(mLuaContext);
 }
 
-void MoeLoopGame::setupInput()
+void NegiGame::setupInput()
 {
 }
 
-void MoeLoopGame::init()
+void NegiGame::init()
 {
     // the init script should bootstrap the engine, load the assets, then
     // switch to other states that is supposed to interact with the player.
     executeFileScript("init.lua");
 }
 
-void MoeLoopGame::addFilesystemPackage(
+void NegiGame::addFilesystemPackage(
     std::string name,
     const std::string &path)
 {
@@ -115,24 +115,24 @@ void MoeLoopGame::addFilesystemPackage(
         std::move(name), std::filesystem::u8path(path));
 }
 
-void MoeLoopGame::changeState(GameState *state)
+void NegiGame::changeState(GameState *state)
 {
     mInputMapping->disableAllActionGroups();
     mStateManager->changeState(state);
 }
 
-void MoeLoopGame::pushState(GameState *state)
+void NegiGame::pushState(GameState *state)
 {
     mInputMapping->disableAllActionGroups();
     mStateManager->pushState(state);
 }
 
-void MoeLoopGame::popState()
+void NegiGame::popState()
 {
     mStateManager->popState();
 }
 
-Scene * MoeLoopGame::currentScene() const
+Scene * NegiGame::currentScene() const
 {
     if(const auto state = dynamic_cast<SceneState*>(mStateManager->topState()))
     {

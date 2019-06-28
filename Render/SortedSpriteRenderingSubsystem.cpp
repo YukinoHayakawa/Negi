@@ -23,7 +23,7 @@
 
 #include "SpriteComponent.hpp"
 
-namespace usagi::moeloop
+namespace usagi::negi
 {
 struct SortedSpriteRenderingSubsystem::SpriteIn
 {

@@ -10,12 +10,12 @@ class InputMapping;
 class GameState;
 }
 
-namespace usagi::moeloop
+namespace usagi::negi
 {
 class Scene;
 class SceneState;
 
-class MoeLoopGame : public GraphicalGame
+class NegiGame : public GraphicalGame
 {
 protected:
     kaguya::State mLuaContext;
@@ -26,8 +26,8 @@ protected:
     void setupInput();
 
 public:
-    explicit MoeLoopGame(std::shared_ptr<Runtime> runtime);
-    ~MoeLoopGame();
+    explicit NegiGame(std::shared_ptr<Runtime> runtime);
+    ~NegiGame();
 
     /**
      * \brief Push InitGameState and execute init script.

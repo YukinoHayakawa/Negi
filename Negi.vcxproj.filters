@@ -42,16 +42,16 @@
     <ClCompile Include="Render\SpriteComponent.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Game\MoeLoopGameState.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="Game\SceneState.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="MoeLoopGame.cpp">
+    <ClCompile Include="JSON\Load.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="JSON\Load.cpp">
+    <ClCompile Include="NegiGame.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\NegiGameState.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -101,19 +101,19 @@
     <ClInclude Include="Scene\TransitionableImage.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Game\MoeLoopGameState.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="Game\SceneState.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="MoeLoopGame.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="JSON\Load.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Scene\CharacterMessageEvent.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="NegiGame.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\NegiGameState.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

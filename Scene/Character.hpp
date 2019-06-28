@@ -3,11 +3,11 @@
 #include <Usagi/Core/Element.hpp>
 #include <Usagi/Core/Math.hpp>
 
-#include <MoeLoop/Script/LuaForwardDecl.hpp>
+#include <Negi/Script/LuaForwardDecl.hpp>
 
 #include "TransitionableImage.hpp"
 
-namespace usagi::moeloop
+namespace usagi::negi
 {
 class Expression;
 

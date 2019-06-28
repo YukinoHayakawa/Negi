@@ -9,7 +9,7 @@ struct AnimationComponent;
 class GpuImage;
 }
 
-namespace usagi::moeloop
+namespace usagi::negi
 {
 struct SpriteComponent;
 

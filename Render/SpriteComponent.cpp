@@ -2,7 +2,7 @@
 
 #include <Usagi/Runtime/Graphics/GpuImage.hpp>
 
-usagi::AlignedBox2f usagi::moeloop::SpriteLayer::quad() const
+usagi::AlignedBox2f usagi::negi::SpriteLayer::quad() const
 {
     // sprite coordinate:
     // +------>x
@@ -17,7 +17,7 @@ usagi::AlignedBox2f usagi::moeloop::SpriteLayer::quad() const
     return box;
 }
 
-usagi::AlignedBox2f usagi::moeloop::SpriteLayer::toUV(
+usagi::AlignedBox2f usagi::negi::SpriteLayer::toUV(
     AlignedBox2f quad) const
 {
     const auto tex_size = texture->size().cast<float>();

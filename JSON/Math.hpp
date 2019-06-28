@@ -6,7 +6,7 @@
 
 namespace Eigen
 {
-using namespace usagi::moeloop;
+using namespace usagi::negi;
 
 // Vector2
 

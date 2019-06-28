@@ -10,7 +10,7 @@ namespace usagi
 class GpuImage;
 }
 
-namespace usagi::moeloop
+namespace usagi::negi
 {
 class Expression : public Element
 {

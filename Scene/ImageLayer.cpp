@@ -5,12 +5,12 @@
 #include <Usagi/Transform/TransformComponent.hpp>
 #include <Usagi/Runtime/Graphics/GpuImage.hpp>
 
-#include <MoeLoop/MoeLoopGame.hpp>
-#include <MoeLoop/Script/Lua.hpp>
+#include <Negi/NegiGame.hpp>
+#include <Negi/Script/Lua.hpp>
 
 #include "Scene.hpp"
 
-namespace usagi::moeloop
+namespace usagi::negi
 {
 ImageLayer::ImageLayer(
     Element *parent,

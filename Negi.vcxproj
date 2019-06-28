@@ -71,12 +71,12 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="Game\MoeLoopGameState.cpp" />
+    <ClCompile Include="Game\NegiGameState.cpp" />
     <ClCompile Include="Game\SceneState.cpp" />
     <ClCompile Include="JSON\JsonAssetDecoder.cpp" />
     <ClCompile Include="JSON\JsonPropertySheetAssetConverter.cpp" />
     <ClCompile Include="JSON\Load.cpp" />
-    <ClCompile Include="MoeLoopGame.cpp" />
+    <ClCompile Include="NegiGame.cpp" />
     <ClCompile Include="Render\SortedSpriteRenderingSubsystem.cpp" />
     <ClCompile Include="Render\SpriteComponent.cpp" />
     <ClCompile Include="Scene\Character.cpp" />
@@ -86,7 +86,7 @@
     <ClCompile Include="Scene\TransitionableImage.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Game\MoeLoopGameState.hpp" />
+    <ClInclude Include="Game\NegiGameState.hpp" />
     <ClInclude Include="Game\SceneState.hpp" />
     <ClInclude Include="JSON\JSON.hpp" />
     <ClInclude Include="JSON\JsonAssetConverter.hpp" />
@@ -95,7 +95,7 @@
     <ClInclude Include="JSON\JSONForwardDecl.hpp" />
     <ClInclude Include="JSON\Load.hpp" />
     <ClInclude Include="JSON\Math.hpp" />
-    <ClInclude Include="MoeLoopGame.hpp" />
+    <ClInclude Include="NegiGame.hpp" />
     <ClInclude Include="Render\SortedSpriteRenderingSubsystem.hpp" />
     <ClInclude Include="Render\SpriteComponent.hpp" />
     <ClInclude Include="Scene\Character.hpp" />

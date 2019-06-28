@@ -1,6 +1,6 @@
 ﻿#include "Expression.hpp"
 
-namespace usagi::moeloop
+namespace usagi::negi
 {
 Expression::Expression(
     Element *parent,

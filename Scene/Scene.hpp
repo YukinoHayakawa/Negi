@@ -3,19 +3,19 @@
 #include <Usagi/Core/Element.hpp>
 #include <Usagi/Core/Math.hpp>
 
-#include <MoeLoop/Script/LuaForwardDecl.hpp>
-#include <MoeLoop/JSON/JSONForwardDecl.hpp>
+#include <Negi/Script/LuaForwardDecl.hpp>
+#include <Negi/JSON/JSONForwardDecl.hpp>
 
-namespace usagi::moeloop
+namespace usagi::negi
 {
-class MoeLoopGame;
+class NegiGame;
 class Expression;
 class Character;
 class ImageLayer;
 
 class Scene : public Element
 {
-    MoeLoopGame *mGame = nullptr;
+    NegiGame *mGame = nullptr;
     Element *mCharacters = nullptr;
     Element *mExpressions = nullptr;
     Element *mImageLayers = nullptr;
@@ -26,7 +26,7 @@ class Scene : public Element
     Character *mLastSpeakCharacter = nullptr;
 
 public:
-    Scene(Element *parent, std::string name, MoeLoopGame *game);
+    Scene(Element *parent, std::string name, NegiGame *game);
 
     void load(const json &j);
 
@@ -37,7 +37,7 @@ public:
 
     Character * lastSpeakCharacter() const { return mLastSpeakCharacter; }
 
-    MoeLoopGame * game() const { return mGame; }
+    NegiGame * game() const { return mGame; }
 
     static void exportScript(kaguya::State &vm);
 };

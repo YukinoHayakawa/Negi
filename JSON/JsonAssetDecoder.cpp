@@ -2,7 +2,7 @@
 
 #include <nlohmann/json.hpp>
 
-usagi::moeloop::json usagi::moeloop::JsonAssetDecoder::operator()(
+usagi::negi::json usagi::negi::JsonAssetDecoder::operator()(
     std::istream &in) const
 {
     json j;

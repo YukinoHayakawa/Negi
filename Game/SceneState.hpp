@@ -2,9 +2,9 @@
 
 #include <Usagi/Camera/Controller/CameraMan.hpp>
 
-#include <MoeLoop/Script/Lua.hpp>
+#include <Negi/Script/Lua.hpp>
 
-#include "MoeLoopGameState.hpp"
+#include "NegiGameState.hpp"
 
 namespace usagi
 {
@@ -13,11 +13,11 @@ class StaticCameraController;
 class OrthogonalCamera;
 }
 
-namespace usagi::moeloop
+namespace usagi::negi
 {
 class Scene;
 
-class SceneState : public MoeLoopGameState
+class SceneState : public NegiGameState
 {
 protected:
     Scene *mScene = nullptr;
@@ -40,7 +40,7 @@ protected:
     void continueScript();
 
 public:
-    SceneState(Element *parent, std::string name, MoeLoopGame *game);
+    SceneState(Element *parent, std::string name, NegiGame *game);
 
     Scene * scene() const { return mScene; }
 

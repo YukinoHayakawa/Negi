@@ -5,7 +5,7 @@
 #include <Usagi/Asset/AssetRoot.hpp>
 #include <Usagi/Core/Logging.hpp>
 
-namespace usagi::moeloop
+namespace usagi::negi
 {
 json JsonCascadingLoader::mergedJson(AssetLoadingContext *ctx, json j)
 {

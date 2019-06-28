@@ -5,7 +5,7 @@
 
 #include "JsonPropertySheetAssetConverter.hpp"
 
-namespace usagi::moeloop
+namespace usagi::negi
 {
 nlohmann::json loadJson(Game *game, const std::string &locator)
 {

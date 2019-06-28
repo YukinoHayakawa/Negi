@@ -2,7 +2,7 @@
 
 #include <Usagi/Core/Event/Event.hpp>
 
-namespace usagi::moeloop
+namespace usagi::negi
 {
 class Character;
 

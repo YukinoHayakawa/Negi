@@ -16,7 +16,7 @@ class GpuSampler;
 class Game;
 }
 
-namespace usagi::moeloop
+namespace usagi::negi
 {
 struct SpriteComponent;
 

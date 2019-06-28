@@ -4,13 +4,13 @@
 #include <Usagi/Animation/AnimationComponent.hpp>
 #include <Usagi/Core/Logging.hpp>
 
-#include <MoeLoop/Render/SpriteComponent.hpp>
-#include <MoeLoop/Script/Lua.hpp>
+#include <Negi/Render/SpriteComponent.hpp>
+#include <Negi/Script/Lua.hpp>
 
 #include "Expression.hpp"
 #include "CharacterMessageEvent.hpp"
 
-namespace usagi::moeloop
+namespace usagi::negi
 {
 Character::Character(Element *parent, std::string name)
     : TransitionableImage(parent, std::move(name))

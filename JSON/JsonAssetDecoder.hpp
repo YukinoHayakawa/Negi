@@ -2,7 +2,7 @@
 
 #include "JSONForwardDecl.hpp"
 
-namespace usagi::moeloop
+namespace usagi::negi
 {
 struct JsonAssetDecoder
 {

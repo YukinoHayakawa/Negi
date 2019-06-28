@@ -4,19 +4,19 @@
 #include <Usagi/Asset/Helper/Load.hpp>
 #include <Usagi/Core/Logging.hpp>
 
-#include <MoeLoop/Script/Lua.hpp>
-#include <MoeLoop/JSON/Load.hpp>
-#include <MoeLoop/JSON/Math.hpp>
-#include <MoeLoop/MoeLoopGame.hpp>
+#include <Negi/Script/Lua.hpp>
+#include <Negi/JSON/Load.hpp>
+#include <Negi/JSON/Math.hpp>
+#include <Negi/NegiGame.hpp>
 
 #include "Expression.hpp"
 #include "ImageLayer.hpp"
 #include "Character.hpp"
 #include "CharacterMessageEvent.hpp"
 
-namespace usagi::moeloop
+namespace usagi::negi
 {
-Scene::Scene(Element *parent, std::string name, MoeLoopGame *game)
+Scene::Scene(Element *parent, std::string name, NegiGame *game)
     : Element(parent, std::move(name))
     , mGame(game)
 {

@@ -2,7 +2,7 @@
 
 #include <Usagi/Core/Element.hpp>
 
-#include <MoeLoop/Script/LuaForwardDecl.hpp>
+#include <Negi/Script/LuaForwardDecl.hpp>
 
 #include "TransitionableImage.hpp"
 
@@ -12,7 +12,7 @@ struct TransformComponent;
 class AssetRoot;
 }
 
-namespace usagi::moeloop
+namespace usagi::negi
 {
 class Scene;
 struct SpriteComponent;

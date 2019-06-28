@@ -5,9 +5,9 @@
 #include <Usagi/Core/Math.hpp>
 #include <Usagi/Core/Logging.hpp>
 
-#include <MoeLoop/Render/SpriteComponent.hpp>
+#include <Negi/Render/SpriteComponent.hpp>
 
-namespace usagi::moeloop
+namespace usagi::negi
 {
 TransitionableImage::TransitionableImage(Element *parent, std::string name)
     : PredefinedElement(parent, std::move(name))
