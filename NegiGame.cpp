@@ -82,7 +82,7 @@ void NegiGame::bindScript()
     });
 
     mLuaContext["unimplemented"].setFunction(&NegiGame::unimplemented);
-    mLuaContext["MoeLoop"].setClass(kaguya::UserdataMetatable<NegiGame>()
+    mLuaContext["Negi"].setClass(kaguya::UserdataMetatable<NegiGame>()
         .addFunction("addFilesystemPackage", &NegiGame::addFilesystemPackage)
         .addFunction("changeState", &NegiGame::changeState)
         .addFunction("pushState", &NegiGame::pushState)
