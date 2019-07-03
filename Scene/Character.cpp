@@ -1,11 +1,12 @@
 ﻿#include "Character.hpp"
 
+#include <sol/table.hpp>
+
 #include <Usagi/Transform/TransformComponent.hpp>
 #include <Usagi/Animation/AnimationComponent.hpp>
 #include <Usagi/Core/Logging.hpp>
 
 #include <Negi/Render/SpriteComponent.hpp>
-#include <Negi/Script/Lua.hpp>
 
 #include "Expression.hpp"
 #include "CharacterMessageEvent.hpp"
@@ -87,15 +88,16 @@ void Character::pretendSay(
     sendEvent<CharacterMessageEvent>(this);
 }
 
-void Character::exportScript(kaguya::State &vm)
+void Character::exportScript(sol::table ns)
 {
-    vm["Character"].setClass(kaguya::UserdataMetatable<Character>()
-        .addFunction("enterScene", &Character::enterScene)
-        .addFunction("exitScene", &Character::exitScene)
-        .addFunction("changeExpression", &Character::changeExpression)
-        .addFunction("move", &Character::move)
-        .addFunction("say", &Character::say)
-        .addFunction("pretendSay", &Character::pretendSay)
+    ns.new_usertype<Character>(
+        "Character",
+        "enterScene", &Character::enterScene,
+        "exitScene", &Character::exitScene,
+        "changeExpression", &Character::changeExpression,
+        "move", &Character::move,
+        "say", &Character::say,
+        "pretendSay", &Character::pretendSay
     );
 }
 }

@@ -1,8 +1,9 @@
 ﻿#pragma once
 
-#include <Usagi/Camera/Controller/CameraMan.hpp>
+#include <sol/thread.hpp>
+#include <sol/coroutine.hpp>
 
-#include <Negi/Script/Lua.hpp>
+#include <Usagi/Camera/Controller/CameraMan.hpp>
 
 #include "NegiGameState.hpp"
 
@@ -21,8 +22,8 @@ class SceneState : public NegiGameState
 {
 protected:
     Scene *mScene = nullptr;
-    kaguya::LuaThread mSceneThread;
-    kaguya::LuaFunction mSceneScript;
+    sol::thread mSceneThread;
+    sol::coroutine mSceneScript;
     bool mContinueScript = true;
 
     using ModelCameraMan =

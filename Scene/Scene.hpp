@@ -1,9 +1,10 @@
 ﻿#pragma once
 
+#include <sol/forward.hpp>
+
 #include <Usagi/Core/Element.hpp>
 #include <Usagi/Core/Math.hpp>
 
-#include <Negi/Script/LuaForwardDecl.hpp>
 #include <Negi/JSON/JSONForwardDecl.hpp>
 
 namespace usagi::negi
@@ -39,6 +40,6 @@ public:
 
     NegiGame * game() const { return mGame; }
 
-    static void exportScript(kaguya::State &vm);
+    static void exportScript(sol::table ns);
 };
 }

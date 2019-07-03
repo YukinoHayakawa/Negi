@@ -1,10 +1,11 @@
 ﻿#include "Scene.hpp"
 
+#include <sol/table.hpp>
+
 #include <Usagi/Asset/AssetRoot.hpp>
 #include <Usagi/Asset/Helper/Load.hpp>
 #include <Usagi/Core/Logging.hpp>
 
-#include <Negi/Script/Lua.hpp>
 #include <Negi/JSON/Load.hpp>
 #include <Negi/JSON/Math.hpp>
 #include <Negi/NegiGame.hpp>
@@ -31,6 +32,7 @@ Scene::Scene(Element *parent, std::string name, NegiGame *game)
 
 void Scene::load(const json &j)
 {
+    // todo exchange z and y to correct order
     auto size = j["size"].get<Vector3f>();
     mBound.min() = { 0, -size.z(), 0 };
     mBound.max() = { size.x(), +size.z(), size.y() };
@@ -71,13 +73,14 @@ Vector3f Scene::getPosition(const std::string &name) const
     return iter->second;
 }
 
-void Scene::exportScript(kaguya::State &vm)
+void Scene::exportScript(sol::table ns)
 {
-    vm["Scene"].setClass(kaguya::UserdataMetatable<Scene>()
-        .addFunction("createImageLayer", &Scene::createImageLayer)
-        .addFunction("loadCharacter", &Scene::loadCharacter)
-        .addFunction("loadExpression", &Scene::loadExpression)
-        .addFunction("getPosition", &Scene::getPosition)
+    ns.new_usertype<Scene>(
+        "Scene",
+        "createImageLayer", &Scene::createImageLayer,
+        "loadCharacter", &Scene::loadCharacter,
+        "loadExpression", &Scene::loadExpression,
+        "getPosition", &Scene::getPosition
     );
 }
 }

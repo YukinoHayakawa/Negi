@@ -1,8 +1,8 @@
 ﻿#pragma once
 
-#include <Usagi/Graphics/Game/GraphicalGame.hpp>
+#include <sol/state.hpp>
 
-#include "Script/Lua.hpp"
+#include <Usagi/Graphics/Game/GraphicalGame.hpp>
 
 namespace usagi
 {
@@ -18,12 +18,15 @@ class SceneState;
 class NegiGame : public GraphicalGame
 {
 protected:
-    kaguya::State mLuaContext;
+    sol::state mLua;
 
     InputMapping *mInputMapping = nullptr;
 
-    void bindScript();
+    // return the namespace for our game
+    sol::table bindScript();
     void setupInput();
+
+    static void luaPanic(std::optional<std::string> msg);
 
 public:
     explicit NegiGame(std::shared_ptr<Runtime> runtime);
@@ -35,15 +38,15 @@ public:
     virtual void init();
 
     InputMapping * inputMapping() { return mInputMapping; }
-    kaguya::State * luaContext() { return &mLuaContext; }
+    sol::state & luaContext() { return mLua; }
 
-    kaguya::LuaFunction loadScript(const std::string &locator);
+    sol::function loadScript(const std::string &locator);
     void executeFileScript(const std::string &path);
     void executeScript(const std::string &locator);
 
     // Functions accessible from Lua
 
-    static void unimplemented(const std::string &msg);
+    // static void unimplemented(const std::string &msg);
     void addFilesystemPackage(std::string name, const std::string &path);
 
     void changeState(GameState *state);

@@ -1,12 +1,13 @@
 ﻿#include "ImageLayer.hpp"
 
+#include <sol/table.hpp>
+
 #include <Usagi/Core/Logging.hpp>
 #include <Usagi/Asset/Helper/Load.hpp>
 #include <Usagi/Transform/TransformComponent.hpp>
 #include <Usagi/Runtime/Graphics/GpuImage.hpp>
 
 #include <Negi/NegiGame.hpp>
-#include <Negi/Script/Lua.hpp>
 
 #include "Scene.hpp"
 
@@ -33,10 +34,11 @@ void ImageLayer::changeImage(const std::string &locator)
     });
 }
 
-void ImageLayer::exportScript(kaguya::State &vm)
+void ImageLayer::exportScript(sol::table ns)
 {
-    vm["ImageLayer"].setClass(kaguya::UserdataMetatable<ImageLayer>()
-        .addFunction("changeImage", &ImageLayer::changeImage)
+    ns.new_usertype<ImageLayer>(
+        "ImageLayer",
+        "changeImage", &ImageLayer::changeImage
     );
 }
 }

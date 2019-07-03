@@ -1,9 +1,9 @@
 ﻿#pragma once
 
+#include <sol/forward.hpp>
+
 #include <Usagi/Core/Element.hpp>
 #include <Usagi/Core/Math.hpp>
-
-#include <Negi/Script/LuaForwardDecl.hpp>
 
 #include "TransitionableImage.hpp"
 
@@ -38,6 +38,6 @@ public:
     std::string lastName() const { return mLastName; }
     std::string lastMessage() const { return mLastMessage; }
 
-    static void exportScript(kaguya::State &vm);
+    static void exportScript(sol::table ns);
 };
 }

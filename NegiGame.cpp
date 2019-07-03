@@ -1,7 +1,5 @@
 ﻿#include "NegiGame.hpp"
 
-#include <fstream>
-
 #include <Usagi/Asset/AssetRoot.hpp>
 #include <Usagi/Asset/Package/Filesystem/FilesystemAssetPackage.hpp>
 #include <Usagi/Asset/Converter/Uncached/StringAssetConverter.hpp>
@@ -22,6 +20,7 @@ namespace usagi::negi
 {
 NegiGame::NegiGame(std::shared_ptr<Runtime> runtime)
     : GraphicalGame(std::move(runtime))
+    , mLua(sol::c_call<decltype(&NegiGame::luaPanic), &NegiGame::luaPanic>)
 {
     mInputMapping = mRootElement.addChild<InputMapping>("InputMapping");
     auto mouse = mRuntime->inputManager()->virtualMouse();
@@ -44,60 +43,67 @@ NegiGame::~NegiGame()
     mRootElement.removeChild(mStateManager);
 }
 
-kaguya::LuaFunction NegiGame::loadScript(const std::string &locator)
+sol::function NegiGame::loadScript(const std::string &locator)
 {
     LOG(info, "Loading script from asset manager: {}", locator);
-    return mLuaContext.loadstring(
+    return mLua.load(
         assets()->uncachedRes<StringAssetConverter>(locator)
-    );
+    ).get<sol::function>();
 }
 
 void NegiGame::executeFileScript(const std::string &path)
 {
     LOG(info, "Executing script from file: {}", path);
-    std::ifstream in(std::filesystem::u8path(path));
-    mLuaContext.dostream(in);
+    mLua.do_file(std::filesystem::u8path(path).u8string());
 }
 
 void NegiGame::executeScript(const std::string &locator)
 {
     LOG(info, "Executing script from asset manager: {}", locator);
-    mLuaContext.dostring(
+    mLua.do_string(
         assets()->uncachedRes<StringAssetConverter>(locator)
     );
 }
 
-void NegiGame::unimplemented(const std::string &msg)
-{
-    LOG(warn, "Script: unimplemented code: {}", msg);
-}
-
-void NegiGame::bindScript()
+sol::table NegiGame::bindScript()
 {
     using namespace std::placeholders;
 
-    mLuaContext.setErrorHandler([](const int error, const char *msg) {
-        LOG(error, "Lua error {}: {}", error, msg);
-        throw std::runtime_error("Error occurred in script.");
-    });
+    // todo
+    // mLua.set_exception_handler()
 
-    mLuaContext["unimplemented"].setFunction(&NegiGame::unimplemented);
-    mLuaContext["Negi"].setClass(kaguya::UserdataMetatable<NegiGame>()
-        .addFunction("addFilesystemPackage", &NegiGame::addFilesystemPackage)
-        .addFunction("changeState", &NegiGame::changeState)
-        .addFunction("pushState", &NegiGame::pushState)
-        .addFunction("popState", &NegiGame::popState)
-        .addFunction("createSceneState", &NegiGame::createSceneState)
-        .addFunction("currentScene", &NegiGame::currentScene)
+    // todo remove. replace with warning
+    // // mLuaContext["unimplemented"].setFunction(&NegiGame::unimplemented);
+
+    // namespace negi in Lua
+    sol::table negi = mLua["negi"].get_or_create<sol::table>();
+    negi.new_usertype<NegiGame>(
+        "NegiGame",
+        "addFilesystemPackage", &NegiGame::addFilesystemPackage,
+        "changeState", &NegiGame::changeState,
+        "pushState", &NegiGame::pushState,
+        "popState", &NegiGame::popState,
+        "createSceneState", &NegiGame::createSceneState,
+        "currentScene", &NegiGame::currentScene
     );
 
-    Scene::exportScript(mLuaContext);
-    Character::exportScript(mLuaContext);
-    ImageLayer::exportScript(mLuaContext);
+    Scene::exportScript(negi);
+    Character::exportScript(negi);
+    ImageLayer::exportScript(negi);
+
+    return negi;
 }
 
 void NegiGame::setupInput()
 {
+}
+
+void NegiGame::luaPanic(std::optional<std::string> msg)
+{
+    if(msg.has_value())
+        LOG(error, "Lua PANIC: {}", msg.value());
+    else
+        LOG(error, "Lua PANIC without further info.");
 }
 
 void NegiGame::init()

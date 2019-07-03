@@ -68,12 +68,6 @@
     <ClInclude Include="Scene\Expression.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Script\Lua.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Script\LuaForwardDecl.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="Render\SortedSpriteRenderingSubsystem.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>

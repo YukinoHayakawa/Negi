@@ -1,8 +1,8 @@
 ﻿#pragma once
 
-#include <Usagi/Core/Element.hpp>
+#include <sol/forward.hpp>
 
-#include <Negi/Script/LuaForwardDecl.hpp>
+#include <Usagi/Core/Element.hpp>
 
 #include "TransitionableImage.hpp"
 
@@ -27,6 +27,6 @@ public:
     // todo pass in texture by scene
     void changeImage(const std::string &locator);
 
-    static void exportScript(kaguya::State &vm);
+    static void exportScript(sol::table ns);
 };
 }

@@ -27,9 +27,11 @@ void SceneState::loadScene()
     mScene->load(game()->assets()->uncachedRes<JsonPropertySheetAssetConverter>(
         fmt::format("scenes/{}.json", name())
     ));
-    mSceneThread = game()->luaContext()->newThread();
-    mSceneScript = game()->loadScript(fmt::format("scripts/{}.lua", name()));
-    mSceneThread.setFunction(mSceneScript);
+    mSceneThread = sol::thread::create(game()->luaContext());
+    mSceneScript = {
+        mSceneThread.state(),
+        game()->loadScript(fmt::format("scripts/{}.lua", name()))
+    };
 }
 
 void SceneState::createCamera()
@@ -89,9 +91,8 @@ SceneState::SceneState(Element *parent, std::string name, NegiGame *game)
 
 void SceneState::continueScript()
 {
-    if(!mSceneThread.isThreadDead())
-        // the returned string is ignored
-        mSceneThread.resume<void>();
+    if(mSceneScript.runnable())
+        mSceneScript();
     mContinueScript = false;
 }
 
