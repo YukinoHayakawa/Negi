@@ -9,13 +9,13 @@
 #include <Usagi/Runtime/Graphics/Swapchain.hpp>
 #include <Usagi/Transform/TransformComponent.hpp>
 #include <Usagi/Utility/Functional.hpp>
+#include <Usagi/Interactive/InputMapping.hpp>
 
 #include <Negi/JSON/JsonPropertySheetAssetConverter.hpp>
 #include <Negi/NegiGame.hpp>
 #include <Negi/Render/SortedSpriteRenderingSubsystem.hpp>
 #include <Negi/Render/SpriteComponent.hpp>
 #include <Negi/Scene/Scene.hpp>
-#include <Usagi/Interactive/InputMapping.hpp>
 
 namespace usagi::negi
 {

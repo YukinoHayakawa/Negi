@@ -54,6 +54,7 @@ sol::function NegiGame::loadScript(const std::string &locator)
 void NegiGame::executeFileScript(const std::string &path)
 {
     LOG(info, "Executing script from file: {}", path);
+
     mLua.do_file(std::filesystem::u8path(path).u8string());
 }
 
@@ -106,11 +107,16 @@ void NegiGame::luaPanic(std::optional<std::string> msg)
         LOG(error, "Lua PANIC without further info.");
 }
 
-void NegiGame::init()
+void NegiGame::bootstrap()
 {
-    // the init script should bootstrap the engine, load the assets, then
-    // switch to other states that is supposed to interact with the player.
-    executeFileScript("init.lua");
+    bindScript();
+    // the init script should bootstrap the engine and load the assets
+    executeFileScript("bootstrap.lua");
+}
+
+void NegiGame::launchGame()
+{
+    executeFileScript("launch_game.lua");
 }
 
 void NegiGame::addFilesystemPackage(

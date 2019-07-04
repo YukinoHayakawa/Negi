@@ -23,7 +23,7 @@ protected:
     InputMapping *mInputMapping = nullptr;
 
     // return the namespace for our game
-    sol::table bindScript();
+    virtual sol::table bindScript();
     void setupInput();
 
     static void luaPanic(std::optional<std::string> msg);
@@ -32,10 +32,9 @@ public:
     explicit NegiGame(std::shared_ptr<Runtime> runtime);
     ~NegiGame();
 
-    /**
-     * \brief Push InitGameState and execute init script.
-     */
-    virtual void init();
+    // execute bootstrap script
+    virtual void bootstrap();
+    virtual void launchGame();
 
     InputMapping * inputMapping() { return mInputMapping; }
     sol::state & luaContext() { return mLua; }
