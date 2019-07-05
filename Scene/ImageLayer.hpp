@@ -1,8 +1,8 @@
 ﻿#pragma once
 
-#include <sol/forward.hpp>
-
 #include <Usagi/Core/Element.hpp>
+
+#include <Negi/Script/LuaForward.hpp>
 
 #include "TransitionableImage.hpp"
 

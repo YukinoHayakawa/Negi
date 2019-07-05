@@ -1,5 +1,6 @@
 ﻿#pragma once
 
+#include <Negi/Script/LuaForward.hpp>
 #include <sol/thread.hpp>
 #include <sol/coroutine.hpp>
 

@@ -104,6 +104,8 @@
     <ClInclude Include="Scene\ImageLayer.hpp" />
     <ClInclude Include="Scene\Scene.hpp" />
     <ClInclude Include="Scene\TransitionableImage.hpp" />
+    <ClInclude Include="Script\Lua.hpp" />
+    <ClInclude Include="Script\LuaForward.hpp" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\..\Thirdparties\Submodules\lua\build\lua.vcxproj">

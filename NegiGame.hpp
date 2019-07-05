@@ -1,5 +1,6 @@
 ﻿#pragma once
 
+#include <Negi/Script/LuaForward.hpp>
 #include <sol/state.hpp>
 
 #include <Usagi/Graphics/Game/GraphicalGame.hpp>

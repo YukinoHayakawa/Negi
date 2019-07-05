@@ -110,5 +110,11 @@
     <ClInclude Include="Game\NegiGameState.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Script\LuaForward.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Script\Lua.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

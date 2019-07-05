@@ -1,11 +1,10 @@
 ﻿#pragma once
 
-#include <sol/forward.hpp>
-
 #include <Usagi/Core/Element.hpp>
 #include <Usagi/Core/Math.hpp>
 
 #include <Negi/JSON/JSONForwardDecl.hpp>
+#include <Negi/Script/LuaForward.hpp>
 
 namespace usagi::negi
 {
