@@ -27,6 +27,7 @@ void SceneState::loadScene()
     mScene->load(game()->assets()->uncachedRes<JsonPropertySheetAssetConverter>(
         fmt::format("scenes/{}.json", name())
     ));
+
     mSceneThread = sol::thread::create(game()->luaContext());
     mSceneScript = {
         mSceneThread.state(),
@@ -92,7 +93,13 @@ SceneState::SceneState(Element *parent, std::string name, NegiGame *game)
 void SceneState::continueScript()
 {
     if(mSceneScript.runnable())
-        mSceneScript();
+    {
+        const auto ret = mSceneScript();
+        if(!ret.valid())
+        {
+            sol::script_default_on_error(ret.lua_state(), std::move(ret));
+        }
+    }
     mContinueScript = false;
 }
 

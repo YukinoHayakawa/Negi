@@ -21,6 +21,11 @@ namespace usagi::negi
 NegiGame::NegiGame(std::shared_ptr<Runtime> runtime)
     : GraphicalGame(std::move(runtime))
 {
+    mLua.open_libraries(
+        sol::lib::base,
+        sol::lib::coroutine
+    );
+
     mInputMapping = mRootElement.addChild<InputMapping>("InputMapping");
     auto mouse = mRuntime->inputManager()->virtualMouse();
     auto kb = mRuntime->inputManager()->virtualKeyboard();
@@ -54,13 +59,13 @@ void NegiGame::executeFileScript(const std::string &path)
 {
     LOG(info, "Executing script from file: {}", path);
 
-    mLua.do_file(std::filesystem::u8path(path).u8string());
+    mLua.safe_script_file(std::filesystem::u8path(path).u8string());
 }
 
 void NegiGame::executeScript(const std::string &locator)
 {
     LOG(info, "Executing script from asset manager: {}", locator);
-    mLua.do_string(
+    mLua.safe_script(
         assets()->uncachedRes<StringAssetConverter>(locator)
     );
 }
