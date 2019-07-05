@@ -27,8 +27,6 @@ protected:
     virtual sol::table bindScript();
     void setupInput();
 
-    static void luaPanic(std::optional<std::string> msg);
-
 public:
     explicit NegiGame(std::shared_ptr<Runtime> runtime);
     ~NegiGame();

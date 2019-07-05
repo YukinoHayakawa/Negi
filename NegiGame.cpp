@@ -20,7 +20,6 @@ namespace usagi::negi
 {
 NegiGame::NegiGame(std::shared_ptr<Runtime> runtime)
     : GraphicalGame(std::move(runtime))
-    , mLua(sol::c_call<decltype(&NegiGame::luaPanic), &NegiGame::luaPanic>)
 {
     mInputMapping = mRootElement.addChild<InputMapping>("InputMapping");
     auto mouse = mRuntime->inputManager()->virtualMouse();
@@ -97,14 +96,6 @@ sol::table NegiGame::bindScript()
 
 void NegiGame::setupInput()
 {
-}
-
-void NegiGame::luaPanic(std::optional<std::string> msg)
-{
-    if(msg.has_value())
-        LOG(error, "Lua PANIC: {}", msg.value());
-    else
-        LOG(error, "Lua PANIC without further info.");
 }
 
 void NegiGame::bootstrap()
