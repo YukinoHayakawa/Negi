@@ -30,10 +30,12 @@ public:
 
     void load(const json &j);
 
-    ImageLayer * createImageLayer(const std::string &name, float y_pos);
     Character * loadCharacter(const std::string &asset_locator);
     Expression * loadExpression(const std::string &name);
     Vector3f getPosition(const std::string &name) const;
+    ImageLayer * getImageLayer(const std::string &name);
+    void playSoundEffect(std::string_view name);
+    void playMusic(std::string_view name);
 
     Character * lastSpeakCharacter() const { return mLastSpeakCharacter; }
 

@@ -38,11 +38,11 @@ void Scene::load(const json &j)
     mBound.max() = { size.x(), +size.z(), size.y() };
 
     mPositions = j["positions"].get<decltype(mPositions)>();
-}
 
-ImageLayer * Scene::createImageLayer(const std::string &name, float y_pos)
-{
-    return mImageLayers->addChild<ImageLayer>(name, y_pos, this);
+    for(auto &&i : j["imageLayers"].get<std::map<std::string, float>>())
+    {
+        mImageLayers->addChild<ImageLayer>(i.first, i.second, this);
+    }
 }
 
 Character * Scene::loadCharacter(const std::string &asset_locator)
@@ -73,14 +73,31 @@ Vector3f Scene::getPosition(const std::string &name) const
     return iter->second;
 }
 
+ImageLayer * Scene::getImageLayer(const std::string &name)
+{
+    return mImageLayers->findChild(name)->as<ImageLayer>();
+}
+
+void Scene::playSoundEffect(std::string_view name)
+{
+    // todo
+}
+
+void Scene::playMusic(std::string_view name)
+{
+    // todo
+}
+
 void Scene::exportScript(sol::table ns)
 {
     ns.new_usertype<Scene>(
         "Scene",
-        "createImageLayer", &Scene::createImageLayer,
         "loadCharacter", &Scene::loadCharacter,
         "loadExpression", &Scene::loadExpression,
-        "getPosition", &Scene::getPosition
+        "getImageLayer", &Scene::getImageLayer,
+        "getPosition", &Scene::getPosition,
+        "playSoundEffect", &Scene::playSoundEffect,
+        "playMusic", &Scene::playMusic
     );
 }
 }
