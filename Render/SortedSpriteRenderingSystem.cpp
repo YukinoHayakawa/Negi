@@ -1,4 +1,4 @@
-﻿#include "SortedSpriteRenderingSubsystem.hpp"
+﻿#include "SortedSpriteRenderingSystem.hpp"
 
 #include <array>
 
@@ -25,13 +25,13 @@
 
 namespace usagi::negi
 {
-struct SortedSpriteRenderingSubsystem::SpriteIn
+struct SortedSpriteRenderingSystem::SpriteIn
 {
     Vector3f pos;
     Vector2f uv[SpriteComponent::NUM_LAYERS];
 };
 
-void SortedSpriteRenderingSubsystem::createBuffers()
+void SortedSpriteRenderingSystem::createBuffers()
 {
     auto gpu = mGame->runtime()->gpu();
 
@@ -48,7 +48,7 @@ void SortedSpriteRenderingSubsystem::createBuffers()
     mIndexBuffer->flush();
 }
 
-SortedSpriteRenderingSubsystem::SortedSpriteRenderingSubsystem(
+SortedSpriteRenderingSystem::SortedSpriteRenderingSystem(
     Game *game,
     CompareFunc compare_func)
     : mGame(game)
@@ -59,7 +59,7 @@ SortedSpriteRenderingSubsystem::SortedSpriteRenderingSubsystem(
     mCommandPool = gpu->createCommandPool();
 }
 
-void SortedSpriteRenderingSubsystem::createRenderTarget(
+void SortedSpriteRenderingSystem::createRenderTarget(
     RenderTargetDescriptor &descriptor)
 {
     descriptor.sharedColorTarget("mlsprite");
@@ -67,7 +67,7 @@ void SortedSpriteRenderingSubsystem::createRenderTarget(
     mRenderTarget = descriptor.finish();
 }
 
-void SortedSpriteRenderingSubsystem::createPipelines()
+void SortedSpriteRenderingSystem::createPipelines()
 {
     auto gpu = mGame->runtime()->gpu();
     auto assets = mGame->assets();
@@ -130,7 +130,7 @@ void SortedSpriteRenderingSubsystem::createPipelines()
     mSampler = gpu->createSampler({ });
 }
 
-void SortedSpriteRenderingSubsystem::update(const Clock &clock)
+void SortedSpriteRenderingSystem::update(const Clock &clock)
 {
     mSortedElements.clear();
     mSortedElements.reserve(mRegistry.size());
@@ -205,7 +205,7 @@ void SortedSpriteRenderingSubsystem::update(const Clock &clock)
     mVertexBuffer->flush();
 }
 
-std::shared_ptr<GraphicsCommandList> SortedSpriteRenderingSubsystem::render(
+std::shared_ptr<GraphicsCommandList> SortedSpriteRenderingSystem::render(
     const Clock &clock)
 {
     if(mSortedElements.empty()) return { };

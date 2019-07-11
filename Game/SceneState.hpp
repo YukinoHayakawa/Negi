@@ -10,7 +10,7 @@
 
 namespace usagi
 {
-class AnimationSubsystem;
+class AnimationSystem;
 class StaticCameraController;
 class OrthogonalCamera;
 }
@@ -31,7 +31,7 @@ protected:
         CameraMan<OrthogonalCamera, StaticCameraController>;
     ModelCameraMan *mCameraElement = nullptr;
 
-    AnimationSubsystem *mAnimation = nullptr;
+    AnimationSystem *mAnimation = nullptr;
 
     void loadScene();
     void createCamera();

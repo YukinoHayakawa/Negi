@@ -77,7 +77,7 @@
     <ClCompile Include="JSON\JsonPropertySheetAssetConverter.cpp" />
     <ClCompile Include="JSON\Load.cpp" />
     <ClCompile Include="NegiGame.cpp" />
-    <ClCompile Include="Render\SortedSpriteRenderingSubsystem.cpp" />
+    <ClCompile Include="Render\SortedSpriteRenderingSystem.cpp" />
     <ClCompile Include="Render\SpriteComponent.cpp" />
     <ClCompile Include="Scene\Character.cpp" />
     <ClCompile Include="Scene\Expression.cpp" />
@@ -96,7 +96,7 @@
     <ClInclude Include="JSON\Load.hpp" />
     <ClInclude Include="JSON\Math.hpp" />
     <ClInclude Include="NegiGame.hpp" />
-    <ClInclude Include="Render\SortedSpriteRenderingSubsystem.hpp" />
+    <ClInclude Include="Render\SortedSpriteRenderingSystem.hpp" />
     <ClInclude Include="Render\SpriteComponent.hpp" />
     <ClInclude Include="Scene\Character.hpp" />
     <ClInclude Include="Scene\CharacterMessageEvent.hpp" />

@@ -1,6 +1,6 @@
 ﻿#include "SceneState.hpp"
 
-#include <Usagi/Animation/AnimationSubsystem.hpp>
+#include <Usagi/Animation/AnimationSystem.hpp>
 #include <Usagi/Asset/AssetRoot.hpp>
 #include <Usagi/Camera/Controller/StaticCameraController.hpp>
 #include <Usagi/Camera/OrthogonalCamera.hpp>
@@ -13,7 +13,7 @@
 
 #include <Negi/JSON/JsonPropertySheetAssetConverter.hpp>
 #include <Negi/NegiGame.hpp>
-#include <Negi/Render/SortedSpriteRenderingSubsystem.hpp>
+#include <Negi/Render/SortedSpriteRenderingSystem.hpp>
 #include <Negi/Render/SpriteComponent.hpp>
 #include <Negi/Scene/Scene.hpp>
 
@@ -45,9 +45,9 @@ void SceneState::createCamera()
 
 void SceneState::setupRenderer()
 {
-    const auto sprite = addSubsystem(
+    const auto sprite = addSystem(
         "sprite",
-        std::make_unique<SortedSpriteRenderingSubsystem>(
+        std::make_unique<SortedSpriteRenderingSystem>(
             game(), [](TransformComponent *lt, SpriteComponent *ls,
             TransformComponent *rt, SpriteComponent *rs) {
                 return lt->position().y() > rt->position().y();
@@ -62,9 +62,9 @@ void SceneState::setupRenderer()
 
 void SceneState::setupAnimation()
 {
-    mAnimation = addSubsystem(
+    mAnimation = addSystem(
         "animation",
-        std::make_unique<AnimationSubsystem>()
+        std::make_unique<AnimationSystem>()
     );
 }
 

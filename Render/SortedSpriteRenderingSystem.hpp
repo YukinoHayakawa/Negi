@@ -2,8 +2,8 @@
 
 #include <vector>
 
-#include <Usagi/Game/CollectionSubsystem.hpp>
-#include <Usagi/Graphics/Game/ProjectiveRenderingSubsystem.hpp>
+#include <Usagi/Game/CollectionSystem.hpp>
+#include <Usagi/Graphics/Game/ProjectiveRenderingSystem.hpp>
 
 namespace usagi
 {
@@ -27,9 +27,9 @@ struct SpriteComponent;
  * Sprites are rendered using the texture color as output (unlit material).
  * Prior to rendering, sprites are sorted using provided compare function.
  */
-class SortedSpriteRenderingSubsystem
-    : public ProjectiveRenderingSubsystem
-    , public CollectionSubsystem<TransformComponent, SpriteComponent>
+class SortedSpriteRenderingSystem final
+    : public ProjectiveRenderingSystem
+    , public CollectionSystem<TransformComponent, SpriteComponent>
 {
 public:
     typedef std::function<bool(
@@ -54,12 +54,17 @@ private:
     void createBuffers();
 
 public:
-    SortedSpriteRenderingSubsystem(Game *game, CompareFunc compare_func);
+    SortedSpriteRenderingSystem(Game *game, CompareFunc compare_func);
 
     void createRenderTarget(RenderTargetDescriptor &descriptor) override;
     void createPipelines() override;
 
     void update(const Clock &clock) override;
     std::shared_ptr<GraphicsCommandList> render(const Clock &clock) override;
+
+    const std::type_info & type() override
+    {
+        return typeid(decltype(*this));
+    }
 };
 }
