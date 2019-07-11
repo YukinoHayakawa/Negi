@@ -82,12 +82,12 @@ void SceneState::setupInput()
 SceneState::SceneState(Element *parent, std::string name, NegiGame *game)
     : NegiGameState(parent, name, game)
 {
-    loadScene();
     createCamera();
     // animation system must be inserted before rendering, otherwise outdated
     // content from last frame will be rendered
     setupAnimation();
     setupRenderer();
+    loadScene();
 }
 
 void SceneState::continueScript()
