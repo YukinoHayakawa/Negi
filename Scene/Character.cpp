@@ -42,7 +42,7 @@ void Character::showAvatar(const bool show)
     mShowAvatar = show;
 }
 
-void Character::move(const Vector3f &position)
+void Character::changePosition(const Vector3f &position)
 {
     Animation ani;
     ani.duration = 0.5;
@@ -64,7 +64,16 @@ void Character::say(const std::string &text)
     sendEvent<CharacterMessageEvent>(this);
 }
 
-void Character::enterScene(
+void Character::setDisguise(std::string_view fake_name)
+{
+
+}
+
+void Character::removeDisguise()
+{
+}
+
+void Character::enterStage(
     Expression *expr,
     const Vector3f &position)
 {
@@ -73,31 +82,32 @@ void Character::enterScene(
     setPosition(position);
 }
 
-void Character::exitScene()
+void Character::exitStage()
 {
     switchImage(1.0, "linear", { });
 }
-
-void Character::pretendSay(
-    const std::string &fake_name,
-    const std::string &text)
-{
-    LOG(info, "{}({}): {}", fake_name, name(), text);
-    mLastName = fake_name;
-    mLastMessage = text;
-    sendEvent<CharacterMessageEvent>(this);
-}
+//
+// void Character::pretendSay(
+//     const std::string &fake_name,
+//     const std::string &text)
+// {
+//     LOG(info, "{}({}): {}", fake_name, name(), text);
+//     mLastName = fake_name;
+//     mLastMessage = text;
+//     sendEvent<CharacterMessageEvent>(this);
+// }
 
 void Character::exportScript(sol::table ns)
 {
     ns.new_usertype<Character>(
         "Character",
-        "enterScene", &Character::enterScene,
-        "exitScene", &Character::exitScene,
+        "enterStage", &Character::enterStage,
+        "exitStage", &Character::exitStage,
         "changeExpression", &Character::changeExpression,
-        "move", &Character::move,
+        "changePosition", &Character::changePosition,
         "say", &Character::say,
-        "pretendSay", &Character::pretendSay
+        "setDisguise", &Character::setDisguise,
+        "removeDisguise", &Character::removeDisguise
     );
 }
 }

@@ -28,12 +28,13 @@ public:
     void showName(bool show);
     void showAvatar(bool show);
 
-    void enterScene(Expression *expr, const Vector3f &position);
-    void exitScene();
+    void enterStage(Expression *expr, const Vector3f &position);
+    void exitStage();
     void changeExpression(Expression *expr);
-    void move(const Vector3f &position);
+    void changePosition(const Vector3f &position);
     void say(const std::string &text);
-    void pretendSay(const std::string &fake_name, const std::string &text);
+    void setDisguise(std::string_view fake_name);
+    void removeDisguise();
 
     std::string lastName() const { return mLastName; }
     std::string lastMessage() const { return mLastMessage; }
