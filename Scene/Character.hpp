@@ -33,8 +33,8 @@ public:
     void changeExpression(Expression *expr);
     void changePosition(const Vector3f &position);
     void say(const std::string &text);
-    void setDisguise(std::string_view fake_name);
-    void removeDisguise();
+    void setAlias(std::string_view fake_name);
+    void removeAlias();
 
     std::string lastName() const { return mLastName; }
     std::string lastMessage() const { return mLastMessage; }

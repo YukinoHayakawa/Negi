@@ -64,12 +64,12 @@ void Character::say(const std::string &text)
     sendEvent<CharacterMessageEvent>(this);
 }
 
-void Character::setDisguise(std::string_view fake_name)
+void Character::setAlias(std::string_view alias)
 {
 
 }
 
-void Character::removeDisguise()
+void Character::removeAlias()
 {
 }
 
@@ -106,8 +106,8 @@ void Character::exportScript(sol::table ns)
         "changeExpression", &Character::changeExpression,
         "changePosition", &Character::changePosition,
         "say", &Character::say,
-        "setDisguise", &Character::setDisguise,
-        "removeDisguise", &Character::removeDisguise
+        "setAlias", &Character::setAlias,
+        "removeAlias", &Character::removeAlias
     );
 }
 }
