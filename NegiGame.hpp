@@ -5,6 +5,8 @@
 
 #include <Usagi/Graphics/Game/GraphicalGame.hpp>
 
+#include "Constants.hpp"
+
 namespace usagi
 {
 class InputMapping;
@@ -38,9 +40,13 @@ public:
     InputMapping * inputMapping() { return mInputMapping; }
     sol::state & luaContext() { return mLua; }
 
-    sol::function loadScript(const std::string &locator);
     void executeFileScript(const std::string &path);
-    void executeScript(const std::string &locator);
+    sol::function loadAssetScript(
+        std::string_view locator,
+        std::string_view path_prefix = asset_path_prefix::SCRIPTS);
+    void executeAssetScript(
+        std::string_view locator,
+        std::string_view path_prefix = asset_path_prefix::SCRIPTS);
 
     // Functions accessible from Lua
 

@@ -15,7 +15,6 @@
 #include "Scene/Character.hpp"
 #include "Scene/ImageLayer.hpp"
 #include "Game/SceneState.hpp"
-#include "Constants.hpp"
 
 namespace usagi::negi
 {
@@ -48,14 +47,6 @@ NegiGame::~NegiGame()
     mRootElement.removeChild(mStateManager);
 }
 
-sol::function NegiGame::loadScript(const std::string &locator)
-{
-    LOG(info, "Loading script from asset manager: {}", locator);
-    return mLua.load(
-        assets()->uncachedRes<StringAssetConverter>(locator)
-    ).get<sol::function>();
-}
-
 void NegiGame::executeFileScript(const std::string &path)
 {
     LOG(info, "Executing script from file: {}", path);
@@ -63,23 +54,30 @@ void NegiGame::executeFileScript(const std::string &path)
     mLua.safe_script_file(std::filesystem::u8path(path).u8string());
 }
 
-void NegiGame::executeScript(const std::string &locator)
+sol::function NegiGame::loadAssetScript(
+    std::string_view locator,
+    std::string_view path_prefix)
 {
-    auto ns_loc = fmt::format("{}{}.lua",
-        asset_path_prefix::SCRIPTS, locator);
-    LOG(info, "Executing script from asset manager: {}", ns_loc);
+    auto path = fmt::format("{}{}", path_prefix, locator);
+    LOG(info, "Loading script from asset manager: {}", path);
+    return mLua.load(
+        assets()->uncachedRes<StringAssetConverter>(path)
+    ).get<sol::function>();
+}
+
+void NegiGame::executeAssetScript(
+    std::string_view locator,
+    std::string_view path_prefix)
+{
+    auto path = fmt::format("{}{}", path_prefix, locator);
+    LOG(info, "Executing script from asset manager: {}", path);
     mLua.safe_script(
-        assets()->uncachedRes<StringAssetConverter>(ns_loc)
+        assets()->uncachedRes<StringAssetConverter>(path)
     );
 }
 
 sol::table NegiGame::bindScript()
 {
-    using namespace std::placeholders;
-
-    // todo
-    // mLua.set_exception_handler()
-
     // todo remove. replace with warning
     // // mLuaContext["unimplemented"].setFunction(&NegiGame::unimplemented);
 
@@ -119,12 +117,12 @@ void NegiGame::bootstrap()
 {
     bindScript();
     // the init script should bootstrap the engine and load the assets
-    executeFileScript("bootstrap.lua");
+    executeAssetScript("bootstrap.lua", "");
 }
 
 void NegiGame::launchGame()
 {
-    executeFileScript("launch_game.lua");
+    executeAssetScript("launch_game.lua", "");
 }
 
 void NegiGame::addFilesystemPackage(
