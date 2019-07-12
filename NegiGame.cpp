@@ -95,6 +95,15 @@ sol::table NegiGame::bindScript()
         "currentScene", &NegiGame::currentScene
     );
 
+    // register SceneStage conversion
+    negi.new_usertype<GameState>(
+        "GameState"
+    );
+    negi.new_usertype<SceneState>(
+        "SceneState",
+        sol::base_classes, sol::bases<GameState>()
+    );
+
     Scene::exportScript(negi);
     Character::exportScript(negi);
     ImageLayer::exportScript(negi);
