@@ -7,6 +7,7 @@
 #include <Usagi/Transform/TransformComponent.hpp>
 #include <Usagi/Runtime/Graphics/GpuImage.hpp>
 
+#include <Negi/Constants.hpp>
 #include <Negi/NegiGame.hpp>
 
 #include "Scene.hpp"
@@ -26,8 +27,9 @@ ImageLayer::ImageLayer(
 
 void ImageLayer::changeImage(const std::string &locator)
 {
+    using namespace asset_path_prefix;
     LOG(info, "ImageLayer::changeImage {}", locator);
-    const auto texture = loadTexture(mScene->game(), locator);
+    const auto texture = loadTexture(mScene->game(), IMAGES + locator);
     switchImage(1.0, "linear", texture);
     comp<TransformComponent>()->setOffset({
         0, 0, static_cast<float>(texture->size().y())

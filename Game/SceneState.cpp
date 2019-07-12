@@ -16,22 +16,24 @@
 #include <Negi/Render/SortedSpriteRenderingSystem.hpp>
 #include <Negi/Render/SpriteComponent.hpp>
 #include <Negi/Scene/Scene.hpp>
+#include <Negi/Constants.hpp>
 
 namespace usagi::negi
 {
 void SceneState::loadScene()
 {
+    using namespace asset_path_prefix;
     LOG(info, "Loading scene: {}", name());
 
     mScene = addChild<Scene>(name(), game());
     mScene->load(game()->assets()->uncachedRes<JsonPropertySheetAssetConverter>(
-        fmt::format("scenes/{}.json", name())
+        fmt::format("{}{}.json", SCENES, name())
     ));
 
     mSceneThread = sol::thread::create(game()->luaContext());
     mSceneScript = {
         mSceneThread.state(),
-        game()->loadScript(fmt::format("scripts/{}.lua", name()))
+        game()->loadScript(fmt::format("{}{}.lua", SCRIPTS, name()))
     };
 }
 

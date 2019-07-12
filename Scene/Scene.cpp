@@ -9,6 +9,7 @@
 #include <Negi/JSON/Load.hpp>
 #include <Negi/JSON/Math.hpp>
 #include <Negi/NegiGame.hpp>
+#include <Negi/Constants.hpp>
 
 #include "Expression.hpp"
 #include "ImageLayer.hpp"
@@ -39,7 +40,7 @@ void Scene::load(const json &j)
 
     mPositions = j["positions"].get<decltype(mPositions)>();
 
-    for(auto &&i : j["imageLayers"].get<std::map<std::string, float>>())
+    for(auto &&i : j["image_layers"].get<std::map<std::string, float>>())
     {
         mImageLayers->addChild<ImageLayer>(i.first, i.second, this);
     }
@@ -52,13 +53,15 @@ Character * Scene::loadCharacter(const std::string &asset_locator)
 
 Expression * Scene::loadExpression(const std::string &name)
 {
+    using namespace asset_path_prefix;
     LOG(info, "Loading expression: {}", name);
-    const auto data = loadJson(mGame, fmt::format("expressions/{}.json", name));
+    const auto data = loadJson(mGame, fmt::format(
+        "{}{}.json", EXPRESSIONS, name));
     return mExpressions->addChild<Expression>(
         name,
         data["origin"].get<Vector2f>(),
         data["face_center"].get<Vector2f>(),
-        loadTexture(mGame, "expressions/" + data["image"].get<std::string>())
+        loadTexture(mGame, EXPRESSIONS + data["image"].get<std::string>())
     );
 }
 

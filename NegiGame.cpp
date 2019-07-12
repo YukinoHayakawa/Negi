@@ -15,6 +15,7 @@
 #include "Scene/Character.hpp"
 #include "Scene/ImageLayer.hpp"
 #include "Game/SceneState.hpp"
+#include "Constants.hpp"
 
 namespace usagi::negi
 {
@@ -64,9 +65,11 @@ void NegiGame::executeFileScript(const std::string &path)
 
 void NegiGame::executeScript(const std::string &locator)
 {
-    LOG(info, "Executing script from asset manager: {}", locator);
+    auto ns_loc = fmt::format("{}{}.lua",
+        asset_path_prefix::SCRIPTS, locator);
+    LOG(info, "Executing script from asset manager: {}", ns_loc);
     mLua.safe_script(
-        assets()->uncachedRes<StringAssetConverter>(locator)
+        assets()->uncachedRes<StringAssetConverter>(ns_loc)
     );
 }
 

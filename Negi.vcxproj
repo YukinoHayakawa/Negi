@@ -86,6 +86,7 @@
     <ClCompile Include="Scene\TransitionableImage.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Constants.hpp" />
     <ClInclude Include="Game\NegiGameState.hpp" />
     <ClInclude Include="Game\SceneState.hpp" />
     <ClInclude Include="JSON\JSON.hpp" />
