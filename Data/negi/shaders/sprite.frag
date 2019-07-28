@@ -52,8 +52,12 @@ float insideBox(vec2 v, vec2 top_left, vec2 bottom_right)
 void main()
 {
     vec4 c0 = texture(sampler2D(tex0, sprite_sampler), uv0);
-    c0.rgb *= ceil(c0.a); // remove empty pixels
     vec4 c1 = texture(sampler2D(tex1, sprite_sampler), uv1);
+
+    // if(c0.a == 0 && c1.a == 0)
+    //     discard;
+
+    c0.rgb *= ceil(c0.a); // remove empty pixels
     c1.rgb *= ceil(c1.a);
 
     out_FragColor =

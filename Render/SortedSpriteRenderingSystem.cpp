@@ -62,8 +62,8 @@ SortedSpriteRenderingSystem::SortedSpriteRenderingSystem(
 void SortedSpriteRenderingSystem::createRenderTarget(
     RenderTargetDescriptor &descriptor)
 {
-    descriptor.sharedColorTarget("mlsprite");
-    // descriptor.depthTarget();
+    descriptor.sharedColorTarget("negi_sprite");
+    descriptor.depthTarget();
     mRenderTarget = descriptor.finish();
 }
 
