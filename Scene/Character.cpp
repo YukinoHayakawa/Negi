@@ -8,6 +8,7 @@
 #include <Usagi/Math/Lerp.hpp>
 
 #include <Negi/Render/SpriteComponent.hpp>
+#include <Negi/JSON/JSON.hpp>
 
 #include "Expression.hpp"
 #include "CharacterMessageEvent.hpp"
@@ -17,6 +18,14 @@ namespace usagi::negi
 Character::Character(Element *parent, std::string name)
     : TransitionableImage(parent, std::move(name))
 {
+    mLastName = this->name();
+}
+
+void Character::load(const json &j)
+{
+    // name = j["name"].get< std::string>();
+    mShowName = j["show_name"];
+    mShowAvatar = j["show_avatar"];
 }
 
 void Character::setPosition(const Vector3f &position)
@@ -31,16 +40,6 @@ void Character::changeExpression(Expression *expr)
     switchImage(0.5, "linear", expr->texture());
     const auto o = expr->origin();
     comp<SpriteComponent>()->layers[1].offset = -o;
-}
-
-void Character::showName(const bool show)
-{
-    mShowName = show;
-}
-
-void Character::showAvatar(const bool show)
-{
-    mShowAvatar = show;
 }
 
 void Character::changePosition(const Vector3f &position)
@@ -60,18 +59,18 @@ void Character::changePosition(const Vector3f &position)
 void Character::say(const std::string &text)
 {
     LOG(info, "{}: {}", name(), text);
-    mLastName = name();
     mLastMessage = text;
     sendEvent<CharacterMessageEvent>(this);
 }
 
 void Character::setAlias(std::string_view alias)
 {
-
+    mLastName = alias;
 }
 
 void Character::removeAlias()
 {
+    mLastName = name();
 }
 
 void Character::enterStage(

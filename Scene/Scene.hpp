@@ -31,7 +31,7 @@ public:
 
     void load(const json &j);
 
-    Character * loadCharacter(const std::string &asset_locator);
+    Character * loadCharacter(const std::string &name);
     Expression * loadExpression(const std::string &name);
     Vector3f getPosition(const std::string &name) const;
     ImageLayer * getImageLayer(const std::string &name);

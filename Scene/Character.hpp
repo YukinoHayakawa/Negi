@@ -1,9 +1,9 @@
 ﻿#pragma once
 
-#include <Negi/Script/LuaForward.hpp>
-
 #include <Usagi/Core/Element.hpp>
 #include <Usagi/Math/Matrix.hpp>
+#include <Negi/Script/LuaForward.hpp>
+#include <Negi/JSON/JSONForwardDecl.hpp>
 
 #include "TransitionableImage.hpp"
 
@@ -25,8 +25,27 @@ public:
     // todo load json config file
     Character(Element *parent, std::string name);
 
-    void showName(bool show);
-    void showAvatar(bool show);
+    void load(const json &j);
+
+    bool showName() const
+    {
+        return mShowName;
+    }
+
+    void setShowName(bool show_name)
+    {
+        mShowName = show_name;
+    }
+
+    bool showAvatar() const
+    {
+        return mShowAvatar;
+    }
+
+    void setShowAvatar(bool show_avatar)
+    {
+        mShowAvatar = show_avatar;
+    }
 
     void enterStage(Expression *expr, const Vector3f &position);
     void exitStage();

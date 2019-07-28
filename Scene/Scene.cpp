@@ -46,9 +46,14 @@ void Scene::load(const json &j)
     }
 }
 
-Character * Scene::loadCharacter(const std::string &asset_locator)
+Character * Scene::loadCharacter(const std::string &name)
 {
-    return mCharacters->addChild<Character>(asset_locator);
+    using namespace asset_path_prefix;
+    auto c =  mCharacters->addChild<Character>(name);
+    const auto data = loadJson(mGame, fmt::format(
+        "{}{}.json", CHARACTERS, name));
+    c->load(data);
+    return c;
 }
 
 Expression * Scene::loadExpression(const std::string &name)
