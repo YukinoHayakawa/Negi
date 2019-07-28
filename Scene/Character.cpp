@@ -5,6 +5,7 @@
 #include <Usagi/Transform/TransformComponent.hpp>
 #include <Usagi/Animation/AnimationComponent.hpp>
 #include <Usagi/Core/Logging.hpp>
+#include <Usagi/Math/Lerp.hpp>
 
 #include <Negi/Render/SpriteComponent.hpp>
 

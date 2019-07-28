@@ -2,7 +2,8 @@
 
 #include <Usagi/Animation/AnimationComponent.hpp>
 #include <Usagi/Transform/TransformComponent.hpp>
-#include <Usagi/Core/Math.hpp>
+#include <Usagi/Math/Matrix.hpp>
+#include <Usagi/Math/Lerp.hpp>
 #include <Usagi/Core/Logging.hpp>
 
 #include <Negi/Render/SpriteComponent.hpp>

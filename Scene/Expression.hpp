@@ -2,7 +2,8 @@
 
 #include <string>
 
-#include <Usagi/Core/Math.hpp>
+#include <Usagi/Math/Matrix.hpp>
+#include <Usagi/Math/Bound.hpp>
 #include <Usagi/Core/Element.hpp>
 
 namespace usagi

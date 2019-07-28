@@ -3,7 +3,7 @@
 #include <Negi/Script/LuaForward.hpp>
 
 #include <Usagi/Core/Element.hpp>
-#include <Usagi/Core/Math.hpp>
+#include <Usagi/Math/Matrix.hpp>
 
 #include "TransitionableImage.hpp"
 

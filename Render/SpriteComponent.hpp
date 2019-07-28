@@ -1,7 +1,8 @@
 ﻿#pragma once
 
 #include <Usagi/Core/Component.hpp>
-#include <Usagi/Core/Math.hpp>
+#include <Usagi/Math/Matrix.hpp>
+#include <Usagi/Math/Bound.hpp>
 
 namespace usagi
 {
