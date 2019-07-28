@@ -15,6 +15,7 @@ class Character : public TransitionableImage
 {
     bool mShowName = true;
     bool mShowAvatar = true;
+    Expression *mCurrentExpression = nullptr;
 
     std::string mLastName;
     std::string mLastMessage;
@@ -45,6 +46,11 @@ public:
     void setShowAvatar(bool show_avatar)
     {
         mShowAvatar = show_avatar;
+    }
+
+    Expression * currentExpression() const
+    {
+        return mCurrentExpression;
     }
 
     void enterStage(Expression *expr, const Vector3f &position);

@@ -33,6 +33,7 @@ public:
      * \return
      */
     Vector2f origin() const { return mOrigin; }
+    Vector2f faceCenter() const { return mFaceCenter; }
 
     std::shared_ptr<GpuImage> texture() const;
     AlignedBox2f textureUvRect() const;
