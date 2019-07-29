@@ -134,6 +134,7 @@ void SceneState::playerContinueScript(const bool yes)
         // newly pushed animation not counted...
         if(mAnimation->activeCount() > 0)
         {
+            mAnimation->immediatelyFinishAll();
         }
         else
         {
