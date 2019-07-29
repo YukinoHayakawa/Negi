@@ -6,6 +6,7 @@ layout(location = 2) in vec2 in_uv1;
 
 layout(push_constant) uniform PushConstant {
     mat4 mvp_matrix;
+    float scaling;
 } pc;
 
 out gl_PerVertex {
@@ -17,7 +18,7 @@ layout(location = 1) out vec2 out_uv1;
 
 void main()
 {
-    gl_Position = pc.mvp_matrix * vec4(in_pos, 1.0);
+    gl_Position = pc.mvp_matrix * vec4(in_pos * pc.scaling, 1.0);
     out_uv0 = in_uv0;
     out_uv1 = in_uv1;
 }

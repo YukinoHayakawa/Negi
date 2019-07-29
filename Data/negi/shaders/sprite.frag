@@ -18,7 +18,7 @@ struct Layer
 
 layout(push_constant) uniform PushConstant {
     // excluded from push constant range for this stage
-    mat4 padding;
+    float padding[17];
     // todo array support or additive blending
     Layer layer0;
     Layer layer1;

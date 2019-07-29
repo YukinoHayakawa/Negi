@@ -53,6 +53,8 @@ private:
 
     void createBuffers();
 
+    float mScaling = 1;
+
 public:
     SortedSpriteRenderingSystem(Game *game, CompareFunc compare_func);
 

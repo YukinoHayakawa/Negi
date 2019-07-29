@@ -233,6 +233,7 @@ std::shared_ptr<GraphicsCommandList> SortedSpriteRenderingSystem::render(
 
         // todo more elements?
 
+        mScaling = 1280.f / 1920.f;
         const auto fallback = mGame->runtime()->gpu()->fallbackTexture();
         cmd_list->bindResourceSet(1, {
             s->layers[0].texture ?
@@ -241,8 +242,14 @@ std::shared_ptr<GraphicsCommandList> SortedSpriteRenderingSystem::render(
                 s->layers[1].texture->baseView() : fallback->baseView(),
         });
 
+        auto local_to_world = t->localToWorld();
+        // scale the position of image
+        local_to_world.translation() *= mScaling;
         cmd_list->setConstant(ShaderStage::VERTEX, "mvp_matrix",
-            (mWorldToNdcFunc() * t->localToWorld()).data(), sizeof(float) * 16);
+            (mWorldToNdcFunc() * local_to_world).data(), sizeof(float) * 16);
+        // scale the size of image
+        cmd_list->setConstant(ShaderStage::VERTEX, "scaling",
+            mScaling);
 
         cmd_list->setConstant(ShaderStage::FRAGMENT, "layer0",
             &s->layers[0].uv_rect, sizeof(float) * 5);
