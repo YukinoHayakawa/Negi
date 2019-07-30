@@ -47,7 +47,7 @@ void SceneState::createCamera()
 
 void SceneState::setupRenderer()
 {
-    const auto sprite = addSystem(
+    mSpriteSystem = addSystem(
         "sprite",
         std::make_unique<SortedSpriteRenderingSystem>(
             game(), [](TransformComponent *lt, SpriteComponent *ls,
@@ -55,7 +55,7 @@ void SceneState::setupRenderer()
                 return lt->position().y() > rt->position().y();
             }
         ));
-    sprite->setWorldToNdcFunc([=]() {
+    mSpriteSystem->setWorldToNdcFunc([=]() {
         // world -> camera local -> NDC
         return mCameraElement->camera()->localToNDC() *
             mCameraElement->comp<TransformComponent>()->worldToLocal();

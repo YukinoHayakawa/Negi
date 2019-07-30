@@ -17,6 +17,7 @@ class OrthogonalCamera;
 
 namespace usagi::negi
 {
+class SortedSpriteRenderingSystem;
 class Scene;
 
 class SceneState : public NegiGameState
@@ -32,6 +33,7 @@ protected:
     ModelCameraMan *mCameraElement = nullptr;
 
     AnimationSystem *mAnimation = nullptr;
+    SortedSpriteRenderingSystem *mSpriteSystem = nullptr;
 
     void loadScene();
     void createCamera();

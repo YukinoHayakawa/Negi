@@ -4,10 +4,12 @@
 
 #include <Usagi/Game/CollectionSystem.hpp>
 #include <Usagi/Graphics/Game/ProjectiveRenderingSystem.hpp>
+#include <Usagi/Transform/TransformComponent.hpp>
+
+#include "SpriteComponent.hpp"
 
 namespace usagi
 {
-struct TransformComponent;
 class GpuCommandPool;
 class GraphicsPipeline;
 class Camera;
@@ -18,8 +20,6 @@ class Game;
 
 namespace usagi::negi
 {
-struct SpriteComponent;
-
 /**
  * \brief
  * Requires elements to have TransformComponent and SpriteComponent.
@@ -52,8 +52,6 @@ private:
     std::shared_ptr<GpuBuffer> mIndexBuffer;
 
     void createBuffers();
-
-    float mScaling = 1;
 
 public:
     SortedSpriteRenderingSystem(Game *game, CompareFunc compare_func);
