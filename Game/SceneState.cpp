@@ -102,7 +102,11 @@ void SceneState::continueScript()
             sol::script_default_on_error(ret.lua_state(), std::move(ret));
         }
     }
-    mContinueScript = false;
+}
+
+bool SceneState::continueScriptCondition()
+{
+    return mContinueScript;
 }
 
 void SceneState::update(const Clock &clock)
@@ -112,8 +116,11 @@ void SceneState::update(const Clock &clock)
         0, size.x(), 0, size.y(), -100, 100);
 
     // todo preload resources
-    if(mContinueScript)
+    if(continueScriptCondition())
+    {
         continueScript();
+        mContinueScript = false;
+    }
 
     NegiGameState::update(clock);
 }

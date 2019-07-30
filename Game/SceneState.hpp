@@ -42,6 +42,7 @@ protected:
     void setupInput();
 
     void continueScript();
+    virtual bool continueScriptCondition();
 
 public:
     SceneState(Element *parent, std::string name, NegiGame *game);
