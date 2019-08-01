@@ -76,6 +76,7 @@ void SceneState::setupInput()
     {
         auto msg = im->actionGroup("Message");
         msg->activate();
+        // bind with virtual function
         msg->setBinaryActionHandler("NextMessage", partial_apply(
             &SceneState::playerContinueScript, this));
     }
@@ -134,19 +135,24 @@ void SceneState::resume()
     setupInput();
 }
 
+void SceneState::finishCurrentDialogOrContinue()
+{
+    // newly pushed animation not counted...
+    if(mAnimation->activeCount() > 0)
+    {
+        mAnimation->immediatelyFinishAll();
+    }
+    else
+    {
+        mContinueScript = true;
+    }
+}
+
 void SceneState::playerContinueScript(const bool yes)
 {
     if(yes)
     {
-        // newly pushed animation not counted...
-        if(mAnimation->activeCount() > 0)
-        {
-            mAnimation->immediatelyFinishAll();
-        }
-        else
-        {
-            mContinueScript = true;
-        }
+        finishCurrentDialogOrContinue();
     }
 }
 }

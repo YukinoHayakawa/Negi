@@ -52,7 +52,8 @@ public:
     void update(const Clock &clock) override;
     void pause() override;
     void resume() override;
+    void finishCurrentDialogOrContinue();
 
-    void playerContinueScript(bool yes);
+    virtual void playerContinueScript(bool yes);
 };
 }
