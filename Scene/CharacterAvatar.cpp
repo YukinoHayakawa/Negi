@@ -14,12 +14,12 @@ CharacterAvatar::CharacterAvatar(Element *parent, std::string name)
 
 void CharacterAvatar::hide()
 {
-    switchImage(0.5, "linear", { });
+    switchImage(0.5, "inOutSine", { });
 }
 
 void CharacterAvatar::change(Expression *expr)
 {
-    switchImage(0.5, "linear", expr->texture());
+    switchImage(0.5, "inOutSine", expr->texture());
     const auto o = expr->faceCenter();
     comp<SpriteComponent>()->layers[1].offset = -o;
 }

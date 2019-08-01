@@ -37,7 +37,7 @@ void Character::changeExpression(Expression *expr)
 {
     // todo use scene default
 
-    switchImage(0.5, "linear", expr->texture());
+    switchImage(0.5, "inOutSine", expr->texture());
     mCurrentExpression = expr;
     const auto o = expr->origin();
     comp<SpriteComponent>()->layers[1].offset = -o;
@@ -85,7 +85,7 @@ void Character::enterStage(
 
 void Character::exitStage()
 {
-    switchImage(1.0, "linear", { });
+    switchImage(0.5, "inOutSine", { });
     mCurrentExpression = nullptr;
 }
 //

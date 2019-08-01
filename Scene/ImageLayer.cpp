@@ -30,7 +30,7 @@ void ImageLayer::changeImage(const std::string &locator)
     using namespace asset_path_prefix;
     LOG(info, "ImageLayer::changeImage {}", locator);
     const auto texture = loadTexture(mScene->game(), IMAGES + locator);
-    switchImage(1.0, "linear", texture);
+    switchImage(0.5, "inOutSine", texture);
     comp<TransformComponent>()->setOffset({
         0, 0, static_cast<float>(texture->size().y())
     });
