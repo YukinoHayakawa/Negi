@@ -61,8 +61,8 @@ public:
     void setAlias(std::string_view fake_name);
     void removeAlias();
 
-    std::string lastName() const { return mLastName; }
-    std::string lastMessage() const { return mLastMessage; }
+    std::string_view lastName() const { return mLastName; }
+    std::string_view lastMessage() const { return mLastMessage; }
 
     static void exportScript(sol::table ns);
 };
