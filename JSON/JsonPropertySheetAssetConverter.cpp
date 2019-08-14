@@ -26,7 +26,7 @@ json JsonCascadingLoader::mergedJson(AssetLoadingContext *ctx, json j)
         if(!current_asset)
         {
             LOG(error, "Failed to load referenced json: {}", parent_locator);
-            throw std::runtime_error("Asses reference error");
+            USAGI_THROW(std::runtime_error("Asses reference error"));
         }
         // push parent json
         inheritance.push(current_asset->decode<DefaultDecoder>());

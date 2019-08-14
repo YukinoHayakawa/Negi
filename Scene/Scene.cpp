@@ -76,7 +76,7 @@ Vector3f Scene::getPosition(const std::string &name) const
     if(iter == mPositions.end())
     {
         LOG(error, "No such position: {}", name);
-        throw std::runtime_error("Non-existing position");
+        USAGI_THROW(std::runtime_error("Non-existing position"));
     }
     return iter->second;
 }
