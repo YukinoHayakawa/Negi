@@ -110,6 +110,9 @@
     <ProjectReference Include="..\..\..\Thirdparties\Submodules\lua\build\lua.vcxproj">
       <Project>{d800dc6b-c67f-4793-ba7c-c59d633846b6}</Project>
     </ProjectReference>
+    <ProjectReference Include="..\..\Extensions\Usagi\Extensions\AssetAudioFormats\AssetAudioFormats.vcxproj">
+      <Project>{f7743a6b-27f0-451d-8bba-2d14ce5fc8ae}</Project>
+    </ProjectReference>
     <ProjectReference Include="..\..\Extensions\Usagi\Extensions\SysBasicAudioMixing\SysBasicAudioMixing.vcxproj">
       <Project>{b2fe99bd-c508-49d2-8ea2-f5508dee3be5}</Project>
     </ProjectReference>

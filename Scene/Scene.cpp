@@ -13,6 +13,7 @@
 
 #include "Expression.hpp"
 #include "ImageLayer.hpp"
+#include "AudioTrack.hpp"
 #include "Character.hpp"
 #include "CharacterMessageEvent.hpp"
 
@@ -25,6 +26,7 @@ Scene::Scene(Element *parent, std::string name, NegiGame *game)
     mCharacters = addChild("Characters");
     mExpressions = addChild("Expressions");
     mImageLayers = addChild("ImageLayers");
+    mAudioTracks = addChild("AudioTracks");
 
     addEventListener<CharacterMessageEvent>([&](CharacterMessageEvent &e) {
         mLastSpeakCharacter = e.character;
@@ -43,6 +45,17 @@ void Scene::load(const json &j)
     for(auto &&i : j["image_layers"].get<std::map<std::string, float>>())
     {
         mImageLayers->addChild<ImageLayer>(i.first, i.second, this);
+    }
+
+    for(auto &&i : j["audio_tracks"].get<std::map<std::string, json>>())
+    {
+        auto &&obj = i.second;
+        // todo set track params
+        mAudioTracks->addChild<AudioTrack>(
+            i.first,
+            // i.second,
+            this
+        );
     }
 }
 
@@ -86,14 +99,9 @@ ImageLayer * Scene::getImageLayer(const std::string &name)
     return mImageLayers->findChild(name)->as<ImageLayer>();
 }
 
-void Scene::playSoundEffect(std::string_view name)
+AudioTrack *Scene::getAudioTrack(const std::string &name)
 {
-    // todo
-}
-
-void Scene::playMusic(std::string_view name)
-{
-    // todo
+    return mAudioTracks->findChild(name)->as<AudioTrack>();
 }
 
 void Scene::exportScript(sol::table ns)
@@ -104,8 +112,7 @@ void Scene::exportScript(sol::table ns)
         "loadExpression", &Scene::loadExpression,
         "getImageLayer", &Scene::getImageLayer,
         "getPosition", &Scene::getPosition,
-        "playSoundEffect", &Scene::playSoundEffect,
-        "playMusic", &Scene::playMusic
+        "getAudioTrack", &Scene::getAudioTrack
     );
 }
 }

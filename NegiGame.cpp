@@ -15,12 +15,15 @@
 #include "Scene/Character.hpp"
 #include "Scene/ImageLayer.hpp"
 #include "Game/SceneState.hpp"
+#include "Scene/AudioTrack.hpp"
 
 namespace usagi::negi
 {
 NegiGame::NegiGame(std::shared_ptr<Runtime> runtime)
     : GraphicalGame(std::move(runtime))
 {
+    mRuntime->initAudio();
+
     mLua.open_libraries(
         sol::lib::base,
         sol::lib::coroutine
@@ -105,6 +108,7 @@ sol::table NegiGame::bindScript()
     Scene::exportScript(negi);
     Character::exportScript(negi);
     ImageLayer::exportScript(negi);
+    AudioTrack::exportScript(negi);
 
     return negi;
 }

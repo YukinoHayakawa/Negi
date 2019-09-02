@@ -13,6 +13,7 @@ class NegiGame;
 class Expression;
 class Character;
 class ImageLayer;
+class AudioTrack;
 
 class Scene : public Element
 {
@@ -20,6 +21,7 @@ class Scene : public Element
     Element *mCharacters = nullptr;
     Element *mExpressions = nullptr;
     Element *mImageLayers = nullptr;
+    Element *mAudioTracks = nullptr;
 
     AlignedBox3f mBound;
     std::map<std::string, Vector3f> mPositions;
@@ -35,8 +37,7 @@ public:
     Expression * loadExpression(const std::string &name);
     Vector3f getPosition(const std::string &name) const;
     ImageLayer * getImageLayer(const std::string &name);
-    void playSoundEffect(std::string_view name);
-    void playMusic(std::string_view name);
+    AudioTrack * getAudioTrack(const std::string &name);
 
     Character * lastSpeakCharacter() const { return mLastSpeakCharacter; }
 
