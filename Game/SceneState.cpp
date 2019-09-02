@@ -33,7 +33,7 @@ void SceneState::loadScene()
     mSceneThread = sol::thread::create(game()->luaContext());
     mSceneScript = {
         mSceneThread.state(),
-        game()->loadAssetScript(name() + ".lua")
+        game()->loadAssetScript(name() + ".lua", SCENE_SCRIPTS)
     };
 }
 

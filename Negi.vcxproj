@@ -47,7 +47,6 @@
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(SolutionDir)Submodules\kaguya\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link />
   </ItemDefinitionGroup>
@@ -59,7 +58,6 @@
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(SolutionDir)Submodules\kaguya\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
@@ -75,6 +73,7 @@
     <ClCompile Include="NegiGame.cpp" />
     <ClCompile Include="Render\SortedSpriteRenderingSystem.cpp" />
     <ClCompile Include="Render\SpriteComponent.cpp" />
+    <ClCompile Include="Scene\AudioTrack.cpp" />
     <ClCompile Include="Scene\Character.cpp" />
     <ClCompile Include="Scene\CharacterAvatar.cpp" />
     <ClCompile Include="Scene\Expression.cpp" />
@@ -96,6 +95,7 @@
     <ClInclude Include="NegiGame.hpp" />
     <ClInclude Include="Render\SortedSpriteRenderingSystem.hpp" />
     <ClInclude Include="Render\SpriteComponent.hpp" />
+    <ClInclude Include="Scene\AudioTrack.hpp" />
     <ClInclude Include="Scene\Character.hpp" />
     <ClInclude Include="Scene\CharacterAvatar.hpp" />
     <ClInclude Include="Scene\CharacterMessageEvent.hpp" />
@@ -109,6 +109,9 @@
   <ItemGroup>
     <ProjectReference Include="..\..\..\Thirdparties\Submodules\lua\build\lua.vcxproj">
       <Project>{d800dc6b-c67f-4793-ba7c-c59d633846b6}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Extensions\Usagi\Extensions\SysBasicAudioMixing\SysBasicAudioMixing.vcxproj">
+      <Project>{b2fe99bd-c508-49d2-8ea2-f5508dee3be5}</Project>
     </ProjectReference>
     <ProjectReference Include="..\..\Usagi\Usagi\Usagi.vcxproj">
       <Project>{4250e1c0-ea0b-4575-bc04-11e7f83c2ed4}</Project>
