@@ -10,5 +10,6 @@ constexpr auto SCENES = "scenes/";
 constexpr auto SCENE_SCRIPTS = "scenes/build/";
 constexpr auto SCRIPTS = "scripts/";
 constexpr auto EXPRESSIONS = "expressions/";
+constexpr auto AUDIO = "audio/";
 }
 }

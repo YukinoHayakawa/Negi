@@ -10,6 +10,8 @@
 #include <Usagi/Transform/TransformComponent.hpp>
 #include <Usagi/Utility/Functional.hpp>
 #include <Usagi/Interactive/InputMapping.hpp>
+#include <Usagi/Extensions/SysBasicAudioMixing/BasicAudioMixingSystem.hpp>
+#include <Usagi/Runtime/Runtime.hpp>
 
 #include <Negi/JSON/JsonPropertySheetAssetConverter.hpp>
 #include <Negi/NegiGame.hpp>
@@ -90,6 +92,9 @@ SceneState::SceneState(Element *parent, std::string name, NegiGame *game)
     // content from last frame will be rendered
     setupAnimation();
     setupRenderer();
+    addSystem("audio_mix", std::make_unique<BasicAudioMixingSystem>(
+        mGame->runtime()->audioManager()
+    ));
     loadScene();
 }
 
