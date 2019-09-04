@@ -15,12 +15,16 @@ AudioTrack::AudioTrack(Element *parent, std::string name, Scene *scene)
 
 void AudioTrack::play(std::string_view asset_path, bool loop)
 {
+    using namespace asset_path_prefix;
     auto *track = comp<BasicAudioStreamComponent>();
-    track->playing = true;
+    // todo: fix race condition with streaming callback
     track->buffer = mScene->game()->assets()
-        ->res<PassthroughAudioAssetConverter>(std::string(asset_path));
+        ->res<PassthroughAudioAssetConverter>(
+            AUDIO + std::string(asset_path));
     track->cursor.reset(track->buffer->frames);
     track->loop = loop;
+    // set playing at last to prevent reading nullptr
+    track->playing = true;
 }
 
 void AudioTrack::stop()
