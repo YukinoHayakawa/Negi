@@ -10,6 +10,7 @@
 #include <Usagi/Runtime/Runtime.hpp>
 #include <Usagi/Game/GameStateManager.hpp>
 #include <Usagi/Interactive/InputMapping.hpp>
+#include <Usagi/Utility/Unicode.hpp>
 
 #include "Scene/Scene.hpp"
 #include "Scene/Character.hpp"
@@ -54,7 +55,7 @@ void NegiGame::executeFileScript(const std::string &path)
 {
     LOG(info, "Executing script from file: {}", path);
 
-    mLua.safe_script_file(std::filesystem::u8path(path).u8string());
+    mLua.safe_script_file(path);
 }
 
 sol::function NegiGame::loadAssetScript(
@@ -134,7 +135,7 @@ void NegiGame::addFilesystemPackage(
     const std::string &path)
 {
     assets()->addChild<FilesystemAssetPackage>(
-        std::move(name), std::filesystem::u8path(path));
+        std::move(name), stringToU8string(path));
 }
 
 void NegiGame::changeState(GameState *state)
