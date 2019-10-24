@@ -58,6 +58,7 @@ public:
     void changeExpression(Expression *expr);
     void changePosition(const Vector3f &position);
     void say(const std::string &text);
+    void continueSay(const std::string &text);
     void setAlias(std::string_view fake_name);
     void removeAlias();
 

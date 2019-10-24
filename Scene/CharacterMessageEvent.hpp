@@ -9,9 +9,11 @@ class Character;
 struct CharacterMessageEvent : Event
 {
     Character *character = nullptr;
+    bool continued = false;
 
-    explicit CharacterMessageEvent(Character *character)
+    CharacterMessageEvent(Character *character, bool continued = false)
         : character(character)
+        , continued(continued)
     {
     }
 };

@@ -61,7 +61,14 @@ void Character::say(const std::string &text)
 {
     LOG(info, "{}: {}", name(), text);
     mLastMessage = text;
-    sendEvent<CharacterMessageEvent>(this);
+    sendEvent<CharacterMessageEvent>(this, false);
+}
+
+void Character::continueSay(const std::string &text)
+{
+    LOG(info, "{} (continued): {}", name(), text);
+    mLastMessage = text;
+    sendEvent<CharacterMessageEvent>(this, true);
 }
 
 void Character::setAlias(std::string_view alias)
@@ -108,6 +115,7 @@ void Character::exportScript(sol::table ns)
         "changeExpression", &Character::changeExpression,
         "changePosition", &Character::changePosition,
         "say", &Character::say,
+        "continueSay", &Character::continueSay,
         "setAlias", &Character::setAlias,
         "removeAlias", &Character::removeAlias
     );
